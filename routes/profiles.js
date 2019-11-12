@@ -21,9 +21,9 @@ router.get('/', auth, async (req, res) => {
          FROM follow GROUP BY follower
       ) f ON f.follower = users.id
       LEFT JOIN (
-            SELECT
+         SELECT
             followee,
-            COUNT(followee) as followees 
+         COUNT(followee) as followees
          FROM follow GROUP BY followee
       ) f2 ON f2.followee = users.id
       LEFT JOIN (
