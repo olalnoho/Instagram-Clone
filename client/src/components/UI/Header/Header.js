@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { AuthContext } from '../../../context/AuthContext'
 const Header = () => {
-   const { user, authLoading } = useContext(AuthContext)
+   const { user, authLoading, setUser } = useContext(AuthContext)
    return (
       <nav className="header">
          <div className="header__items">
@@ -15,15 +15,22 @@ const Header = () => {
             </div>
             <div className="header__items--actions">
                {
-                  !user && !authLoading &&
-                  <>
-                     <Link to="/login" className="btn btn--primary">Log In</Link>
-                     <Link to="/" className="btn btn--secondary"> Sign Up </Link>
-                  </>
+                  !user && !authLoading ?
+                     <>
+                        <Link to="/login" className="btn btn--primary">Log In</Link>
+                        <Link to="/" className="btn btn--secondary"> Sign Up </Link>
+                     </> :
+
+                     <>
+                        <button onClick={() => {
+                           localStorage.removeItem('token')
+                           setUser(null)
+                        }} className="btn btn--thirdary">Log out</button>
+                     </>
                }
             </div>
          </div>
-      </nav>
+      </nav >
    )
 }
 

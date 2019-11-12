@@ -142,6 +142,12 @@
   background-color: #fff !important;
 }
 
+.btn--thirdary {
+  font-weight: bold;
+  color: #ddd !important;
+  background-color: #e27a8f !important;
+}
+
 .heading-2 {
   font-size: 2.2rem;
   margin-bottom: 2rem;
@@ -429,7 +435,24 @@ html {
   font-family: "Open sans", sans-serif;
 }
 
-a:link, a:visited, a:active {
+a:link,
+a:visited,
+a:active {
   color: inherit;
   text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  -webkit-transition: -webkit-transform 0.2s;
+  transition: -webkit-transform 0.2s;
+  transition: transform 0.2s;
+  transition: transform 0.2s, -webkit-transform 0.2s;
+}
+
+button:active {
+  -webkit-transform: translateY(2px);
+          transform: translateY(2px);
 }

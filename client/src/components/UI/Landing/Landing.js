@@ -1,11 +1,9 @@
-import React, { useContext } from 'react'
-// import { AuthContext } from '../../../context/AuthContext'
+import React from 'react'
 import { Link } from 'react-router-dom'
 import Register from '../../Register/Register'
 const imageSrc2 = 'https://cdn.pixabay.com/photo/2016/09/20/11/27/phone-1682317_960_720.png'
 const imageSrc = 'https://upload.wikimedia.org/wikipedia/commons/f/f8/Black-android-phone.svg'
 const Landing = () => {
-   // const { user, authLoading } = useContext(AuthContext)
    return (
       <div className="landing">
          <div className="landing__content">
