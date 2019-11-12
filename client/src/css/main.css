@@ -423,6 +423,54 @@
           flex: 1;
 }
 
+.profile__header {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.profile__header__avatar {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  margin-right: 3rem;
+}
+
+.profile__header__avatar img {
+  border-radius: 50%;
+}
+
+.profile__header__info {
+  -webkit-box-flex: 4;
+      -ms-flex-positive: 4;
+          flex-grow: 4;
+}
+
+.profile__header__info--first {
+  margin-bottom: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.profile__header__info--first button {
+  margin-left: 2rem;
+}
+
+.profile__header__info--second {
+  margin-bottom: 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.profile__header__info--second p:not(:last-child) {
+  margin-right: 4rem;
+}
+
 * {
   margin: 0;
   padding: 0;
