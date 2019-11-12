@@ -9,7 +9,7 @@ const Register = () => {
    const [password, setPassword] = useState('')
    const { fetchData, data, loading, error } = useHttp('/users/register')
 
-   if(user) {
+   if (user) {
       return <Redirect to="/profile" />
    }
    if (loading) {
@@ -34,9 +34,10 @@ const Register = () => {
    return (
       <div className="register">
          {error && <p className="error"> {error} </p>}
+         <button className="btn btn--primary"
+            style={{ width: '80%', margin: '0 auto 2rem auto', display: 'block', padding: '0.9rem 0rem 0.7rem 0.9rem' }}>Log in with Github</button>
          <form className="form" onSubmit={submitRegister}>
-            {/* <input type="submit" value="Log in with Facebook" />
-            <span> OR </span> */}
+            <span> OR </span>
             <input value={username} onChange={e => setUsername(e.target.value)} type="text" placeholder="Username" />
             <input value={email} onChange={e => setEmail(e.target.value)} type="email" placeholder="Email" />
             <input value={password} onChange={e => setPassword(e.target.value)} type="password" placeholder="Password" />
