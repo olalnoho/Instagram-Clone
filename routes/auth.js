@@ -39,7 +39,21 @@ router.post('/login', async (req, res) => {
 })
 
 router.get('/me', auth, async (req, res) => {
-   res.json(req.user)
+   try {
+      const [user] = await db('users')
+         .select('*')
+         .where({ id: req.userId })
+      if (!user) {
+         res.status(404).json({
+            err: 'User not found'
+         })
+      }
+      res.json(user)
+   } catch (err) {
+      res.status(500).json({
+         err: 'Error when retrieving user data'
+      })
+   }
 })
 
 module.exports = router
