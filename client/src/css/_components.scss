@@ -1,0 +1,97 @@
+.container {
+  min-height: 100vh;
+  height: 1px;
+  flex-direction: column;
+}
+
+.flex {
+  display: flex;
+}
+
+.flexcol {
+  display: flex;
+  flex-direction: column;
+}
+
+.flexcenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  input {
+    border: none;
+    outline: none;
+    padding: 0.9rem 0rem 0.7rem 0.9rem;
+    width: 80%;
+    margin-bottom: 1rem;
+
+    &[type="submit"] {
+      border-radius: 0.4rem;
+      cursor: pointer;
+      background-color: $button-color;
+      font-weight: bold;
+      color: white;
+      &:disabled {
+        background-color: $disabled-button-color !important;
+        cursor: not-allowed;
+      }
+    }
+
+    &::placeholder {
+      font-size: 1.2rem;
+      color: #999;
+    }
+  }
+}
+
+.disabled-button {
+  background-color: $disabled-button-color !important;
+}
+
+.mt {
+  margin-top: 2rem;
+}
+
+.mb {
+  margin-bottom: 2rem;
+}
+
+.error {
+  font-size: 1.5rem;
+  padding: 1rem;
+  background-color: rgb(223, 119, 140);
+  color: white;
+  text-align: center;
+  margin: 2rem auto;
+}
+
+.line {
+  height: 2.7rem;
+  width: 1px;
+  background-color: #000;
+  margin: 0 1.6rem;
+}
+
+.btn {
+  text-align: center;
+  font-size: 1.4rem;
+  border-radius: 0.4rem;
+  color: white;
+  font-weight: bold;
+  padding: 0.5rem 0.9rem;
+  &--primary {
+    color: white !important;
+    background-color: #3897f0 !important;
+  }
+  &--secondary {
+    font-weight: 300;
+    color: #3897f0 !important;
+    background-color: #fff !important;
+  }
+}

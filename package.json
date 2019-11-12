@@ -1,0 +1,24 @@
+{
+  "name": "gramclone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "env-cmd -f ./config/dev.env nodemon index.js",
+    "dev": "concurrently \"npm run server\" \"npm start --prefix client\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.6-alpha.6",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.20.1",
+    "pg": "^7.12.1"
+  },
+  "devDependencies": {
+    "concurrently": "^5.0.0"
+  }
+}

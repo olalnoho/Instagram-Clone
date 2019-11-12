@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
+
+@import './vars';
+@import './components';
+@import './typography';
+@import '../components/UI/Landing/Landing';
+@import '../components/Login/Login';
+@import '../components/Register/Register';
+@import '../components/UI/Header/Header';
+@import '../components/Profile/Profile';
+
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
+}
+
+html {
+   font-size: 62.5%;
+   font-family: "Open sans", sans-serif;
+}
+
+a:link, a:visited, a:active {
+   color: inherit;
+   text-decoration: none;
+}

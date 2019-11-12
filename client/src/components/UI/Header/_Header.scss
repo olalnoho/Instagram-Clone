@@ -1,0 +1,62 @@
+.header {
+  height: 7.7rem;
+  border-bottom: 1px solid rgba(219, 219, 219, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  &__items {
+    justify-content: space-between;
+    align-items: center;
+    i {
+      font-size: 3rem;
+    }
+    .Pacifico {
+      font-size: 2rem;
+    }
+    display: flex;
+    width: 60%;
+    margin: auto;
+
+    &--logo {
+      display: flex;
+      align-items: center;
+    }
+
+    &--search {
+      position: relative;
+      i {
+        position: absolute;
+        top: 50%;
+        left: 38%;
+        transform: translate(-50%, -50%);
+        font-size: 1.5rem;
+        transition: all 0.3s;
+      }
+
+      input {
+        border: solid 1px #dbdbdb;
+        border-radius: 3px;
+        color: #262626;
+        outline: 0;
+        padding: 0.7rem 1rem 0.7rem 2.6rem;
+        z-index: 2;
+
+        &::placeholder {
+          text-align: center;
+        }
+
+        &:focus ~ i {
+          left: 8%;
+        }
+
+        &:focus::placeholder {
+          text-align: left;
+        }
+
+        &:not(:placeholder-shown) ~ i {
+          left: 8%;
+        }
+      }
+    }
+  }
+}
