@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import axios from '../axios/axios'
 export const AuthContext = React.createContext({
    user: {},
    setUser: () => { },
@@ -11,11 +11,7 @@ export default props => {
    const [authLoading, setAuthLoading] = useState(true)
    useEffect(() => {
       if (localStorage.getItem('token')) {
-         axios.get('/auth/me', {
-            headers: {
-               'Authorization': localStorage.getItem('token')
-            }
-         })
+         axios.get('/auth/me')
             .then(res => {
                setUser(res.data)
                setAuthLoading(false)
