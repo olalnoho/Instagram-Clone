@@ -13,10 +13,12 @@ const OtherProfile = (props) => {
    const { data, error, loading, setData } = useHttpGet(`/profiles/${uname}`)
 
    const followUser = e => {
+      // @note
+      // Maybe optimistic UI is right here for less lag
       if (doesFollow) {
          axios.post(`/profiles/unfollow/${data.id}`)
             .then(res => {
-               setDoesFollow(false)
+               //setDoesFollow(false)
                setData(prevState => ({
                   ...prevState,
                   followers: +followers - 1,
@@ -29,10 +31,11 @@ const OtherProfile = (props) => {
       } else {
          axios.post(`/profiles/follow/${data.id}`)
             .then(res => {
-               setDoesFollow(true)
+               //setDoesFollow(true)
                setData(prevState => ({
                   ...prevState,
-                  followers: +followers + 1
+                  followers: +followers + 1,
+                  isfollowing: 1
                }))
             })
             .catch(err => {
@@ -44,6 +47,8 @@ const OtherProfile = (props) => {
    useEffect(() => {
       if (data && data.isfollowing) {
          setDoesFollow(true)
+      } else if (data && data.isfollowing === 0) {
+         setDoesFollow(false)
       }
    }, [data])
 
