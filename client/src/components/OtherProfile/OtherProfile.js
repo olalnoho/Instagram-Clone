@@ -14,11 +14,11 @@ const OtherProfile = (props) => {
 
    const followUser = async e => {
       // @note
-      // Request will probably never fail
-      // So taking an optimistic UI approach here makes sense
-      // for a more responve behaviour
-      let url = doesFollow ? `/profiles/unfollow/${data.id}` : `/profiles/follow/${data.id}`
-      let copyOfPrev = Object.assign({}, data)
+      // The request will **probably** never fail, and always has the same outcome
+      // so taking an optimistic-UI approach here makes sense
+      // for a more responive behaviour
+      const url = doesFollow ? `/profiles/unfollow/${data.id}` : `/profiles/follow/${data.id}`
+      const copyOfPrev = Object.assign({}, data)
       try {
          setData(prevState => ({
             ...prevState,
@@ -26,36 +26,9 @@ const OtherProfile = (props) => {
             isfollowing: doesFollow ? 0 : 1
          }))
          await axios.post(url)
-      } catch (error) {
+      } catch {
          setData(copyOfPrev)
       }
-      // if (doesFollow) {
-      //    axios.post(`/profiles/unfollow/${data.id}`)
-      //       .then(res => {
-      //          //setDoesFollow(false)
-      //          setData(prevState => ({
-      //             ...prevState,
-      //             followers: +followers - 1,
-      //             isfollowing: 0
-      //          }))
-      //       })
-      //       .catch(err => {
-
-      //       })
-      // } else {
-      //    axios.post(`/profiles/follow/${data.id}`)
-      //       .then(res => {
-      //          //setDoesFollow(true)
-      //          setData(prevState => ({
-      //             ...prevState,
-      //             followers: +followers + 1,
-      //             isfollowing: 1
-      //          }))
-      //       })
-      //       .catch(err => {
-
-      //       })
-      // }
    }
 
    useEffect(() => {
@@ -91,7 +64,7 @@ const OtherProfile = (props) => {
                         <button onClick={followUser} className="btn btn--primary"> {doesFollow ? 'Unfollow' : 'Follow'} </button>
                      </div>
                      <div className="profile__header__info--second">
-                        <p className="lead"><strong>{post_count}</strong> posts</p>
+                        <p className="lead"><strong> {post_count} </strong> posts</p>
                         <p className="lead"><strong> {followers} </strong> followers </p>
                         <p className="lead"><strong> {followees} </strong> following</p>
                      </div>
