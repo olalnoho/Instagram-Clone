@@ -47,7 +47,13 @@ const OtherProfile = (props) => {
       return <Redirect to="/profile" />
    }
 
-   const { username, followers, followees, post_count, profile_text } = data || {}
+   const {
+      username,
+      followers,
+      followees,
+      post_count,
+      profile_text
+   } = data || {}
 
    return (
       <>
