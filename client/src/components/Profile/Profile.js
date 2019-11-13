@@ -14,7 +14,7 @@ const Profile = () => {
       <>
          <Header />
          <div className="profile">
-            {error && <p className="error">Something went wrong</p>}
+            {error ? <p className="error">Something went wrong</p> :
             <header className="profile__header">
                <div className="profile__header__avatar">
                   <img src={testAvatar} alt="avatar" />
@@ -35,7 +35,7 @@ const Profile = () => {
                      </p>
                   </div>
                </div>
-            </header>
+            </header>}
          </div>
       </>
    )

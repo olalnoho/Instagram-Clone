@@ -7,7 +7,6 @@ export default initUrl => {
    const [error, setError] = useState(null)
    const [loading, setLoading] = useState(true)
    useEffect(() => {
-      console.log('ran')
       axios.get(url)
          .then(({ data }) => {
             setData(data)

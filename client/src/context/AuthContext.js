@@ -26,7 +26,7 @@ export default props => {
    return <AuthContext.Provider value={{
       user,
       setUser,
-      authLoading
+      authLoading,
    }}>
       {props.children}
    </AuthContext.Provider>

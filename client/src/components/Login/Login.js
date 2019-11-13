@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react'
 import useHttp from '../../hooks/useHttp'
 import { Link, Redirect } from 'react-router-dom'
 import { AuthContext } from '../../context/AuthContext'
+import axios from '../../axios/axios'
 const Login = () => {
    const [identifier, setIdentifier] = useState('')
    const [password, setPassword] = useState('')
@@ -27,6 +28,7 @@ const Login = () => {
 
    if (data) {
       localStorage.setItem('token', data.token)
+      axios.defaults.headers.common['Authorization'] = data.token
       setUser(data.user)
       return <Redirect to="/profile" />
    }
