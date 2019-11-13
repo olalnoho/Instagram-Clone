@@ -5,6 +5,7 @@ import Login from './components/Login/Login';
 import Register from './components/Register/Register';
 import Profile from './components/Profile/Profile';
 import OtherProfile from './components/OtherProfile/OtherProfile';
+import NotFound from './components/NotFound/NotFound';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/register" component={Register} />
         <Route path="/profile" exact component={Profile} />
         <Route path="/profiles/:username" component={OtherProfile} />
+        <Route path="*" component={NotFound} />
       </Switch>
     </div>
   )

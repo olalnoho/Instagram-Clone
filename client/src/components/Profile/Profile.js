@@ -22,7 +22,6 @@ const Profile = () => {
                <div className="profile__header__info">
                   <div className="profile__header__info--first">
                      <p className="lead"> {username} </p>
-                     <button className="btn btn--primary">Follow</button>
                   </div>
                   <div className="profile__header__info--second">
                      <p className="lead"><strong>{post_count}</strong> posts</p>

@@ -22,6 +22,7 @@ export default initUrl => {
       data,
       error,
       loading,
-      setUrl
+      setUrl,
+      setData
    }
 }

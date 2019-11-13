@@ -471,6 +471,16 @@
   margin-right: 4rem;
 }
 
+.not-found {
+  margin: auto;
+}
+
+.not-found strong {
+  font-size: 4rem;
+  text-align: center;
+  display: block;
+}
+
 * {
   margin: 0;
   padding: 0;

@@ -1,14 +1,51 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Redirect } from 'react-router-dom'
 import { AuthContext } from '../../context/AuthContext'
 import Header from '../UI/Header/Header'
 import useHttpGet from '../../hooks/useHttpGet'
+import axios from '../../axios/axios'
 const testAvatar = "https://scontent-arn2-2.cdninstagram.com/vp/fc9f9cdae239fe0319afc0cca853cd2d/5E5792C1/t51.2885-19/s150x150/66230601_898875400450053_5296268938865278976_n.jpg?_nc_ht=scontent-arn2-2.cdninstagram.com"
 const OtherProfile = (props) => {
+   const [doesFollow, setDoesFollow] = useState(null)
    const uname = props.match.params.username
    const { user } = useContext(AuthContext)
 
-   const { data, error, loading } = useHttpGet(`/profiles/${uname}`)
+   const { data, error, loading, setData } = useHttpGet(`/profiles/${uname}`)
+
+   const followUser = e => {
+      if (doesFollow) {
+         axios.post(`/profiles/unfollow/${data.id}`)
+            .then(res => {
+               setDoesFollow(false)
+               setData(prevState => ({
+                  ...prevState,
+                  followers: +followers - 1,
+                  isfollowing: 0
+               }))
+            })
+            .catch(err => {
+
+            })
+      } else {
+         axios.post(`/profiles/follow/${data.id}`)
+            .then(res => {
+               setDoesFollow(true)
+               setData(prevState => ({
+                  ...prevState,
+                  followers: +followers + 1
+               }))
+            })
+            .catch(err => {
+
+            })
+      }
+   }
+
+   useEffect(() => {
+      if (data && data.isfollowing) {
+         setDoesFollow(true)
+      }
+   }, [data])
 
    if (loading) {
       return <div className="profile"></div>
@@ -19,6 +56,7 @@ const OtherProfile = (props) => {
    }
 
    const { username, followers, followees, post_count, profile_text } = data || {}
+
    return (
       <>
          <Header />
@@ -31,11 +69,11 @@ const OtherProfile = (props) => {
                   <div className="profile__header__info">
                      <div className="profile__header__info--first">
                         <p className="lead"> {username} </p>
-                        <button className="btn btn--primary">Follow</button>
+                        <button onClick={followUser} className="btn btn--primary"> {doesFollow ? 'Unfollow' : 'Follow'} </button>
                      </div>
                      <div className="profile__header__info--second">
                         <p className="lead"><strong>{post_count}</strong> posts</p>
-                        <p className="lead"><strong> {followers} </strong> followers</p>
+                        <p className="lead"><strong> {followers} </strong> followers </p>
                         <p className="lead"><strong> {followees} </strong> following</p>
                      </div>
                      <div className="profile__header__info--third">
