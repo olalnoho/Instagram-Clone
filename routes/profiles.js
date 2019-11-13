@@ -9,8 +9,8 @@ router.get('/', auth, async (req, res) => {
    const { rows } = await db.raw(`
       SELECT
          username,
-         COALESCE(followers, 0) as followers,
-         COALESCE(followees, 0) as followees,
+         COALESCE(followers, 0) as followees,
+         COALESCE(followees, 0) as followers,
          COALESCE(post_count, 0) as post_count,
          p.profile_text
       FROM users

@@ -12,36 +12,50 @@ const OtherProfile = (props) => {
 
    const { data, error, loading, setData } = useHttpGet(`/profiles/${uname}`)
 
-   const followUser = e => {
+   const followUser = async e => {
       // @note
-      // Maybe optimistic UI is right here for less lag
-      if (doesFollow) {
-         axios.post(`/profiles/unfollow/${data.id}`)
-            .then(res => {
-               //setDoesFollow(false)
-               setData(prevState => ({
-                  ...prevState,
-                  followers: +followers - 1,
-                  isfollowing: 0
-               }))
-            })
-            .catch(err => {
-
-            })
-      } else {
-         axios.post(`/profiles/follow/${data.id}`)
-            .then(res => {
-               //setDoesFollow(true)
-               setData(prevState => ({
-                  ...prevState,
-                  followers: +followers + 1,
-                  isfollowing: 1
-               }))
-            })
-            .catch(err => {
-
-            })
+      // Request will probably never fail
+      // So taking an optimistic UI approach here makes sense
+      // for a more responve behaviour
+      let url = doesFollow ? `/profiles/unfollow/${data.id}` : `/profiles/follow/${data.id}`
+      let copyOfPrev = Object.assign({}, data)
+      try {
+         setData(prevState => ({
+            ...prevState,
+            followers: +followers + (doesFollow ? -1 : 1),
+            isfollowing: doesFollow ? 0 : 1
+         }))
+         await axios.post(url)
+      } catch (error) {
+         setData(copyOfPrev)
       }
+      // if (doesFollow) {
+      //    axios.post(`/profiles/unfollow/${data.id}`)
+      //       .then(res => {
+      //          //setDoesFollow(false)
+      //          setData(prevState => ({
+      //             ...prevState,
+      //             followers: +followers - 1,
+      //             isfollowing: 0
+      //          }))
+      //       })
+      //       .catch(err => {
+
+      //       })
+      // } else {
+      //    axios.post(`/profiles/follow/${data.id}`)
+      //       .then(res => {
+      //          //setDoesFollow(true)
+      //          setData(prevState => ({
+      //             ...prevState,
+      //             followers: +followers + 1,
+      //             isfollowing: 1
+      //          }))
+      //       })
+      //       .catch(err => {
+
+      //       })
+      // }
    }
 
    useEffect(() => {
