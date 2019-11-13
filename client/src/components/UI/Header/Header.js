@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { AuthContext } from '../../../context/AuthContext'
 const Header = () => {
+   const history = useHistory()
    const { user, authLoading, setUser } = useContext(AuthContext)
    return (
       <nav className="header">
@@ -20,9 +21,9 @@ const Header = () => {
                         <Link to="/login" className="btn btn--primary">Log In</Link>
                         <Link to="/" className="btn btn--secondary"> Sign Up </Link>
                      </> :
-
                      <>
                         <button onClick={() => {
+                           history.push('/')
                            localStorage.removeItem('token')
                            setUser(null)
                         }} className="btn btn--thirdary">Log out</button>
