@@ -1,3 +1,4 @@
+const path = require('path')
 const express = require('express')
 const fileUploader = require('express-fileupload')
 const auth = require('./routes/auth')
@@ -6,6 +7,9 @@ const profiles = require('./routes/profiles')
 const imageUpload = require('./routes/imageUpload')
 
 const app = express()
+app.use(express.static(
+   path.join(__dirname, 'public')
+))
 app.use(fileUploader({}))
 app.use(express.json())
 app.use('/auth', auth)

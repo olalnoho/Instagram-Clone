@@ -9,16 +9,14 @@ import NotFound from './components/NotFound/NotFound';
 
 function App() {
   return (
-    <div className="container flex">
-      <Switch>
-        <Route path="/" exact component={Landing} />
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-        <Route path="/profile" exact component={Profile} />
-        <Route path="/profiles/:username" component={OtherProfile} />
-        <Route path="*" component={NotFound} />
-      </Switch>
-    </div>
+    <Switch>
+      <Route path="/" exact component={Landing} />
+      <Route path="/login" component={Login} />
+      <Route path="/register" component={Register} />
+      <Route path="/profile" exact component={Profile} />
+      <Route path="/profiles/:username" component={OtherProfile} />
+      <Route path="*" component={NotFound} />
+    </Switch>
   )
 }
 

@@ -1,0 +1,58 @@
+.upload {
+  width: 90%;
+  height: 60%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  h2 {
+    margin-bottom: 0;
+  }
+  .form {
+    width: 80%;
+    [type="text"] {
+      border-bottom: 1px solid black;
+      width: 100%;
+      text-overflow: ellipsis;
+      padding: 1rem;
+      &::placeholder {
+        color: black;
+        // text-align: center;
+      }
+    }
+  }
+}
+
+[type="file"] {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  white-space: nowrap;
+  width: 1px;
+}
+
+[type="file"] + label {
+  transition: all 0.2s;
+  font-weight: bold;
+  // background-color: #333;
+  color: #000;
+  cursor: pointer;
+  display: inline-block;
+  padding: 2rem 4rem;
+  margin-bottom: 2rem;
+  border: 1px solid black;
+}
+
+[type="file"]:focus + label,
+[type="file"] + label:hover {
+  background-color: rgb(209, 209, 209);
+}
+
+[type="file"]:focus + label {
+  outline: 1px dotted #000;
+}

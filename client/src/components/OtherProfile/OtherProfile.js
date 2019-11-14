@@ -56,7 +56,8 @@ const OtherProfile = (props) => {
    } = data || {}
 
    return (
-      <>
+      <div className="container flex">
+
          <Header />
          <div className="profile">
             {error ? <p className="error">Could not find user {uname}</p> :
@@ -82,7 +83,7 @@ const OtherProfile = (props) => {
                   </div>
                </header>}
          </div>
-      </>
+      </div>
    )
 }
 
