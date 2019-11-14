@@ -1,14 +1,22 @@
 import React, { useState } from 'react'
+import axios from '../../axios/axios'
 
-const Upload = () => {
+const Upload = ({ username }) => {
+   console.log(username)
    const [file, setFile] = useState()
    const [fileName, setFileName] = useState('Choose a file')
    const [allTags, setAllTags] = useState([])
    const [tag, setTag] = useState('')
 
-   const uploadFile = e => {
+   const uploadFile = async e => {
       const formData = new FormData()
       formData.append('file', file)
+      formData.append('username', username)
+      try {
+         await axios.post('/upload', formData)
+      } catch {
+         
+      }
    }
 
    const addTag = e => {
@@ -62,7 +70,9 @@ const Upload = () => {
                onChange={e => setTag(e.target.value)}
             />
 
-            <input type="submit" value="Upload" />
+            <input type="submit" value="Upload" onClick={e => {
+               uploadFile()
+            }} />
          </div>
       </div>
    )

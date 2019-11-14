@@ -19,7 +19,7 @@ const Profile = () => {
       }}>
 
          {showModal && <Modal>
-            <Upload />
+            <Upload username={username} />
          </Modal>}
 
          <Header />
@@ -49,6 +49,7 @@ const Profile = () => {
                      </div>
                   </div>
                </header>}
+            {username && <img src={`/${username}/87-512.png`} />}
          </div>
       </div>
    )
