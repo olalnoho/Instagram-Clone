@@ -32,7 +32,7 @@ router.post('/', auth, async (req, res) => {
                err: 'Unable to save image to filesystem'
             })
          }
-     
+
       } else {
          return res.status(500).json({
             err: 'Unable to save image to filesystem'
@@ -41,19 +41,20 @@ router.post('/', auth, async (req, res) => {
    }
 
    try {
-      await db('photos').insert({
+      const [fileData] = await db('photos').insert({
          uploaded_by: req.userId,
          file_path: `${username}/${file.name}`
+      }).returning(['file_path', 'id'])
+
+      return res.json({
+         file: fileData
       })
+
    } catch (err) {
       return res.status(500).json({
          err: 'Unable to save image to database'
       })
    }
-
-   return res.json({
-      file: fullPath
-   })
 })
 
 module.exports = router

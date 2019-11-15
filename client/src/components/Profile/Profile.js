@@ -6,7 +6,7 @@ import Upload from '../Upload/Upload'
 const testAvatar = "https://scontent-arn2-2.cdninstagram.com/vp/fc9f9cdae239fe0319afc0cca853cd2d/5E5792C1/t51.2885-19/s150x150/66230601_898875400450053_5296268938865278976_n.jpg?_nc_ht=scontent-arn2-2.cdninstagram.com"
 const Profile = () => {
    const { data, error, loading } = useHttpGet('/profiles')
-   const { data: photos } = useHttpGet('/profiles/photos')
+   const { data: photos, setData: addPhoto } = useHttpGet('/profiles/photos')
    const [showModal, setShowModal] = useState(false)
 
    if (loading) {
@@ -20,7 +20,7 @@ const Profile = () => {
       }}>
 
          {showModal && <Modal>
-            <Upload username={username} />
+            <Upload addPhoto={addPhoto} username={username} />
          </Modal>}
 
          <Header />
@@ -50,7 +50,7 @@ const Profile = () => {
                      </div>
                   </div>
                </header>}
-               <br />
+            <br />
             <div className="profile__gallery">
                {photos && photos.map(p => {
                   return <div key={p.id} className="profile__gallery__image">

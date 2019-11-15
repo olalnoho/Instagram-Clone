@@ -1,20 +1,27 @@
 import React, { useState } from 'react'
 import axios from '../../axios/axios'
 
-const Upload = ({ username }) => {
+const Upload = ({ username, addPhoto }) => {
    const [file, setFile] = useState()
    const [fileName, setFileName] = useState('Choose a file')
    const [allTags, setAllTags] = useState([])
    const [tag, setTag] = useState('')
+   const [error, setError] = useState(null)
 
    const uploadFile = async e => {
+      if (error) {
+         setError(null)
+      }
       const formData = new FormData()
       formData.append('file', file)
       formData.append('username', username)
       try {
-         await axios.post('/upload', formData)
-      } catch {
-
+         const { data } = await axios.post('/upload', formData)
+         addPhoto(prev => {
+            return [data.file, ...prev]
+         })
+      } catch (err) {
+         setError(err)
       }
    }
 
@@ -41,6 +48,7 @@ const Upload = ({ username }) => {
 
    return (
       <div className="upload">
+         {error && <p className="error">Something went wrong</p>}
          <h2 className="heading-2">
             Upload a photo
          </h2>
