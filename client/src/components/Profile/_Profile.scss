@@ -1,12 +1,14 @@
 .profile {
   width: calc(100% - 4rem);
-  max-width: 93.5rem;
+  max-width: 96.5rem;
   margin: 0 auto 3rem;
   padding: 6rem 2rem 0;
   flex: 1;
+  display: flex;
+  flex-direction: column;
 
   &__header {
-     align-items: center;
+    align-items: center;
     display: flex;
     &__avatar {
       flex-grow: 1;
@@ -16,28 +18,36 @@
       }
     }
     &__info {
-       flex-grow: 4;
+      flex-grow: 4;
       &--first {
-         margin-bottom: 2rem;
+        margin-bottom: 2rem;
         display: flex;
         button {
           margin-left: 2rem;
         }
       }
       &--second {
-         margin-bottom: 2rem;
-         display: flex;
-         p:not(:last-child) {
-            margin-right: 4rem;
-         }
+        margin-bottom: 2rem;
+        display: flex;
+        p:not(:last-child) {
+          margin-right: 4rem;
+        }
       }
     }
   }
 
   &__gallery {
-    img {
-      height: 10rem;
-      width: 10rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    width: 100%;
+    margin-top: 10rem;
+    &__image {
+      img {
+        object-fit: cover;
+        height: 30rem;
+        width: 30rem;
+      }
     }
   }
 }

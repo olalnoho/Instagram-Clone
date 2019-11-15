@@ -20,14 +20,22 @@ router.post('/', auth, async (req, res) => {
    let fullPath = path.resolve(folder, file.name)
    try {
       await fs.access(folder)
-      await sharp(file.data).resize(600).toFile(fullPath)
+      // first null in resize means width will auto-scale to height.
+      await sharp(file.data).resize(null, 600).toFile(fullPath)
    } catch (err) {
       if (err.code === 'ENOENT') {
-         await fs.mkdir(folder, { recursive: true })
-         await sharp(file.data).resize(600).toFile(fullPath)
+         try {
+            await fs.mkdir(folder, { recursive: true })
+            await sharp(file.data).resize(null, 600).toFile(fullPath)
+         } catch {
+            return res.status(500).json({
+               err: 'Unable to save image to filesystem'
+            })
+         }
+     
       } else {
          return res.status(500).json({
-            err: 'Server error'
+            err: 'Unable to save image to filesystem'
          })
       }
    }
@@ -49,9 +57,3 @@ router.post('/', auth, async (req, res) => {
 })
 
 module.exports = router
-
-/*
-   id SERIAL PRIMARY KEY,
-   uploaded_by INT,
-   file_path VARCHAR(255),
-*/

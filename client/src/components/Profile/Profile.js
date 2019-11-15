@@ -50,9 +50,12 @@ const Profile = () => {
                      </div>
                   </div>
                </header>}
+               <br />
             <div className="profile__gallery">
                {photos && photos.map(p => {
-                  return <img key={p.id} src={p.file_path} alt="p" />
+                  return <div key={p.id} className="profile__gallery__image">
+                     <img src={p.file_path} alt="p" />
+                  </div>
                })}
             </div>
          </div>
