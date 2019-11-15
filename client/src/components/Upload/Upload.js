@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import axios from '../../axios/axios'
 
 const Upload = ({ username }) => {
-   console.log(username)
    const [file, setFile] = useState()
    const [fileName, setFileName] = useState('Choose a file')
    const [allTags, setAllTags] = useState([])
@@ -15,7 +14,7 @@ const Upload = ({ username }) => {
       try {
          await axios.post('/upload', formData)
       } catch {
-         
+
       }
    }
 

@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const db = require('../db')
 const auth = require('../middleware/auth')
+
 router.post('/', auth, (req, res) => {
 
 })
@@ -39,6 +40,18 @@ router.get('/', auth, async (req, res) => {
    res.json(rows[0])
 })
 
+router.get('/photos', auth, async (req, res) => {
+   try {
+      const data = await db('photos').select('file_path', 'id').where({
+         uploaded_by: req.userId
+      })
+
+      res.json(data)
+   } catch{
+
+   }
+})
+
 router.get('/:username', auth, async (req, res) => {
    const { rows } = await db.raw(`
       SELECT
@@ -75,16 +88,14 @@ router.get('/:username', auth, async (req, res) => {
          FROM follow
          WHERE follower = ?
       ) isFollowing ON isFollowing.followee = users.id
-      LEFT JOIN profiles p ON p.user = users.id 
+      LEFT JOIN profiles p ON p.user = users.id
       WHERE users.username = ?;
    `, [req.userId, req.params.username])
 
    if (!rows.length) {
-      return res
-         .status(404)
-         .json({
-            err: 'Could not find profile for this user'
-         })
+      return res.status(404).json({
+         err: 'Could not find profile for this user'
+      })
    }
 
    res.json(rows[0])
@@ -112,10 +123,12 @@ router.post('/follow/:id', auth, async (req, res) => {
 
 router.post('/unfollow/:id', auth, async (req, res) => {
    try {
-      await db('follow').delete().where({
-         follower: req.userId,
-         followee: req.params.id
-      })
+      await db('follow')
+         .delete()
+         .where({
+            follower: req.userId,
+            followee: req.params.id
+         })
       return res.send('Ok')
    } catch (err) {
       console.log(err)

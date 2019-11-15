@@ -529,6 +529,11 @@
   margin-right: 4rem;
 }
 
+.profile__gallery img {
+  height: 10rem;
+  width: 10rem;
+}
+
 .upload {
   width: 90%;
   height: 60%;

@@ -1,8 +1,11 @@
-const router = require('express').Router()
 const fs = require('fs').promises
 const path = require('path')
+const router = require('express').Router()
 
-router.post('/', async (req, res) => {
+const db = require('../db')
+const auth = require('../middleware/auth')
+
+router.post('/', auth, async (req, res) => {
    const { file } = req.files || {}
    const username = req.body.username
 
@@ -27,7 +30,27 @@ router.post('/', async (req, res) => {
          })
       }
    }
-   return res.send('Ok')
+
+   try {
+      await db('photos').insert({
+         uploaded_by: req.userId,
+         file_path: `${username}/${file.name}`
+      })
+   } catch (err) {
+      return res.status(500).json({
+         err: 'Unable to save image to database'
+      })
+   }
+
+   return res.json({
+      file: fullPath
+   })
 })
 
 module.exports = router
+
+/*
+   id SERIAL PRIMARY KEY,
+   uploaded_by INT,
+   file_path VARCHAR(255),
+*/
