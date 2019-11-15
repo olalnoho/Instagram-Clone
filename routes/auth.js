@@ -38,7 +38,7 @@ router.post('/login', async (req, res) => {
    })
 })
 
-router.get('/me', auth, async (req, res) => {
+router.get('/me', auth(true), async (req, res) => {
    try {
       const [user] = await db('users')
          .select('*')

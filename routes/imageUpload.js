@@ -6,7 +6,7 @@ const router = require('express').Router()
 const db = require('../db')
 const auth = require('../middleware/auth')
 
-router.post('/', auth, async (req, res) => {
+router.post('/', auth(true), async (req, res) => {
    const { file } = req.files || {}
    const username = req.body.username
 

@@ -7,10 +7,20 @@ import axios from '../../axios/axios'
 const testAvatar = "https://scontent-arn2-2.cdninstagram.com/vp/fc9f9cdae239fe0319afc0cca853cd2d/5E5792C1/t51.2885-19/s150x150/66230601_898875400450053_5296268938865278976_n.jpg?_nc_ht=scontent-arn2-2.cdninstagram.com"
 const OtherProfile = (props) => {
    const [doesFollow, setDoesFollow] = useState(null)
+   const [photos, setPhotos] = useState(null)
    const uname = props.match.params.username
    const { user } = useContext(AuthContext)
 
    const { data, error, loading, setData } = useHttpGet(`/profiles/${uname}`)
+
+   useEffect(() => {
+      if (data && data.id) {
+         axios.get(`/profiles/photos/${data.id}`)
+            .then(res =>
+               setPhotos(res.data)
+            )
+      }
+   }, [data])
 
    const followUser = async e => {
       // @note
@@ -82,6 +92,13 @@ const OtherProfile = (props) => {
                      </div>
                   </div>
                </header>}
+            <div className="profile__gallery">
+               {photos && photos.map(p => {
+                  return <div key={p.id} className="profile__gallery__image">
+                     <img src={`http://localhost:5000/${p.file_path}`} alt="uploaded by user" />
+                  </div>
+               })}
+            </div>
          </div>
       </div>
    )
