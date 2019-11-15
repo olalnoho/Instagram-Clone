@@ -78,7 +78,7 @@ const OtherProfile = (props) => {
                   <div className="profile__header__info">
                      <div className="profile__header__info--first">
                         <p className="lead"> {username} </p>
-                        <button onClick={followUser} className="btn btn--primary"> {doesFollow ? 'Unfollow' : 'Follow'} </button>
+                        {user && <button onClick={followUser} className="btn btn--primary"> {doesFollow ? 'Unfollow' : 'Follow'} </button>}
                      </div>
                      <div className="profile__header__info--second">
                         <p className="lead"><strong> {post_count} </strong> posts</p>
@@ -94,6 +94,8 @@ const OtherProfile = (props) => {
                </header>}
             <div className="profile__gallery">
                {photos && photos.map(p => {
+                  // @note
+                  // Change src when deploying
                   return <div key={p.id} className="profile__gallery__image">
                      <img src={`http://localhost:5000/${p.file_path}`} alt="uploaded by user" />
                   </div>
