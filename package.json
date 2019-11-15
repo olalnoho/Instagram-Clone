@@ -16,7 +16,8 @@
     "express-fileupload": "^1.1.6-alpha.6",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.20.1",
-    "pg": "^7.12.1"
+    "pg": "^7.12.1",
+    "sharp": "^0.23.2"
   },
   "devDependencies": {
     "concurrently": "^5.0.0"

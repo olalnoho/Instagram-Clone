@@ -1,5 +1,6 @@
 const fs = require('fs').promises
 const path = require('path')
+const sharp = require('sharp')
 const router = require('express').Router()
 
 const db = require('../db')
@@ -19,11 +20,11 @@ router.post('/', auth, async (req, res) => {
    let fullPath = path.resolve(folder, file.name)
    try {
       await fs.access(folder)
-      await file.mv(fullPath)
+      await sharp(file.data).resize(600).toFile(fullPath)
    } catch (err) {
       if (err.code === 'ENOENT') {
          await fs.mkdir(folder, { recursive: true })
-         await file.mv(fullPath)
+         await sharp(file.data).resize(600).toFile(fullPath)
       } else {
          return res.status(500).json({
             err: 'Server error'
