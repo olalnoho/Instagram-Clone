@@ -22,6 +22,10 @@ router.post('/register', async (req, res) => {
          })
          .returning('*')
 
+         await db('profiles').insert({
+            user: user.id
+         })
+
       return res.json({
          user,
          token: generateToken(user.id)

@@ -57,4 +57,46 @@ router.post('/', auth(true), async (req, res) => {
    }
 })
 
+router.post('/avatar', auth(true), async (req, res) => {
+   const { file } = req.files || {}
+   const username = req.body.username
+   const { userId } = req
+
+   if (!file) {
+      return res.status(400).json({
+         err: 'No file'
+      })
+   }
+
+   let folder = path.join(__dirname, '../public/avatars')
+   let fullPath = path.resolve(folder)
+   try {
+      // first null in resize means width will auto-scale to height.
+      await sharp(file.data).resize(null, 150).toFile(fullPath + '/' + username + '.png')
+   } catch (err) {
+      console.log(err)
+      return res.status(500).json({
+         err: 'Unable to save image to filesystem'
+      })
+   }
+
+   try {
+      const [fileData] = await db('profiles').update({
+         avatar: `avatars/${username}.png`
+      }).where({
+         user: userId
+      }).returning('avatar')
+
+      return res.json({
+         file: fileData
+      })
+
+   } catch (err) {
+      console.log(err)
+      return res.status(500).json({
+         err: 'Unable to save image to database'
+      })
+   }
+})
+
 module.exports = router

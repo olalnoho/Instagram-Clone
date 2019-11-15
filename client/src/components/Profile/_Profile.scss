@@ -11,9 +11,17 @@
     align-items: center;
     display: flex;
     &__avatar {
+      display: flex;
+      flex-direction: column;
       flex-grow: 1;
       margin-right: 3rem;
+      justify-content: center;
+      align-items: center;
       img {
+        margin-bottom: 1rem;
+        width: 15rem;
+        height: 15rem;
+        object-fit: cover;
         border-radius: 50%;
       }
     }

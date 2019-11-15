@@ -13,7 +13,8 @@ router.get('/', auth(true), async (req, res) => {
          COALESCE(followers, 0) as followees,
          COALESCE(followees, 0) as followers,
          COALESCE(post_count, 0) as post_count,
-         p.profile_text
+         COALESCE(p.profile_text, 'No text') as profile_text,
+         COALESCE(p.avatar, '') as avatar
       FROM users
       LEFT JOIN (
          SELECT
