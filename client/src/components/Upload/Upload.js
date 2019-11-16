@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import axios from '../../axios/axios'
 
-const Upload = ({ username, addPhoto }) => {
+const Upload = ({ username, addPhoto, modalState }) => {
    const [file, setFile] = useState()
    const [fileName, setFileName] = useState('Choose a file')
    const [allTags, setAllTags] = useState([])
@@ -20,6 +20,7 @@ const Upload = ({ username, addPhoto }) => {
          addPhoto(prev => {
             return [data.file, ...prev]
          })
+         modalState(false)
       } catch (err) {
          setError(err)
       }

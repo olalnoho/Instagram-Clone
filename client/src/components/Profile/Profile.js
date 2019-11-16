@@ -25,11 +25,11 @@ const Profile = () => {
       }}>
 
          {showUploadModal && <Modal>
-            <Upload addPhoto={addPhoto} username={username} />
+            <Upload modalState={setShowUploadModal} addPhoto={addPhoto} username={username} />
          </Modal>}
 
          {showAvatarModal && <Modal>
-            <UploadAvatar setAvatar={setData} username={username} />
+            <UploadAvatar modalState={setShowAvatarModal} setAvatar={setData} username={username} />
          </Modal>}
 
          {showProfileTextModal && <Modal>
