@@ -41,7 +41,8 @@ const Profile = () => {
             {error ? <p className="error">Something went wrong</p> :
                <header className="profile__header">
                   <div className="profile__header__avatar">
-                     <img src={data.avatar} alt="avatar" />
+                     {/* The date on img src acts as cachebreaker */}
+                     <img src={data.avatar + '?' + new Date().getTime()} alt="avatar" />
                      <button onClick={e => {
                         e.stopPropagation()
                         setShowAvatarModal(true)

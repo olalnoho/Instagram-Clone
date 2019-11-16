@@ -72,7 +72,7 @@ router.post('/avatar', auth(true), async (req, res) => {
    let fullPath = path.resolve(folder)
    try {
       // first null in resize means width will auto-scale to height.
-      await sharp(file.data).resize(null, 150).toFile(fullPath + '/' + `${username}-${file.name}`)
+      await sharp(file.data).resize(null, 150).toFile(fullPath + '/' + `${username}.png`)
    } catch (err) {
       return res.status(500).json({
          err: 'Unable to save image to filesystem'
@@ -81,7 +81,7 @@ router.post('/avatar', auth(true), async (req, res) => {
 
    try {
       const [fileData] = await db('profiles').update({
-         avatar: `avatars/${username}-${file.name}`
+         avatar: `avatars/${username}.png`
       }).where({
          user: userId
       }).returning('avatar')
