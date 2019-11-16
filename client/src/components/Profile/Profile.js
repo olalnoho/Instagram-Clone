@@ -4,12 +4,13 @@ import useHttpGet from '../../hooks/useHttpGet'
 import Modal from '../UI/Modal/Modal'
 import Upload from '../Upload/Upload'
 import UploadAvatar from '../UploadAvatar/UploadAvatar'
-const testAvatar = "https://scontent-arn2-2.cdninstagram.com/vp/fc9f9cdae239fe0319afc0cca853cd2d/5E5792C1/t51.2885-19/s150x150/66230601_898875400450053_5296268938865278976_n.jpg?_nc_ht=scontent-arn2-2.cdninstagram.com"
+import EditText from './EditText'
 const Profile = () => {
-   const { data, error, loading } = useHttpGet('/profiles')
+   const { data, error, loading, setData } = useHttpGet('/profiles')
    const { data: photos, setData: addPhoto } = useHttpGet('/profiles/photos')
    const [showUploadModal, setShowUploadModal] = useState(false)
    const [showAvatarModal, setShowAvatarModal] = useState(false)
+   const [showProfileTextModal, setShowProfileTextModal] = useState(false)
 
    if (loading) {
       return <div className="profile"></div>
@@ -19,7 +20,8 @@ const Profile = () => {
    return (
       <div className="container flex" onClick={e => {
          showUploadModal && setShowUploadModal(false)
-         showAvatarModal &&  setShowAvatarModal(false)
+         showAvatarModal && setShowAvatarModal(false)
+         showProfileTextModal && setShowProfileTextModal(false)
       }}>
 
          {showUploadModal && <Modal>
@@ -27,7 +29,11 @@ const Profile = () => {
          </Modal>}
 
          {showAvatarModal && <Modal>
-            <UploadAvatar username={username}/>
+            <UploadAvatar setAvatar={setData} username={username} />
+         </Modal>}
+
+         {showProfileTextModal && <Modal>
+            <EditText modalState={setShowProfileTextModal} setProfileText={setData} />
          </Modal>}
 
          <Header />
@@ -49,6 +55,8 @@ const Profile = () => {
                            setShowUploadModal(true)
                         }} className="btn btn--primary">Upload photo</button>
                         <button onClick={e => {
+                           e.stopPropagation()
+                           setShowProfileTextModal(true)
                         }} className="btn btn--primary">Edit Profile Text</button>
                      </div>
                      <div className="profile__header__info--second">

@@ -6,19 +6,23 @@ const useHttp = url => {
    const [error, setError] = useState(null)
 
    const fetchData = useCallback(body => {
-      setLoading(true)
-      if (error) {
-         setError(null)
-      }
-      axios.post(url, body)
-         .then(({ data }) => {
-            setData(data)
-            setLoading(false)
-         })
-         .catch(err => {
-            setError(err.response.data.err)
-            setLoading(false)
-         })
+      return new Promise((res, rej) => {
+         setLoading(true)
+         if (error) {
+            setError(null)
+         }
+         axios.post(url, body)
+            .then(({ data }) => {
+               setData(data)
+               setLoading(false)
+               res(data)
+            })
+            .catch(err => {
+               setError(err.response.data.err)
+               setLoading(false)
+               rej(err)
+            })
+      })
    }, [url, error])
 
    return {

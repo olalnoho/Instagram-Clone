@@ -41,6 +41,25 @@ router.get('/', auth(true), async (req, res) => {
    res.json(rows[0])
 })
 
+router.post('/edit_profile', auth(true), async (req, res) => {
+   const { userId } = req
+   console.log(req.body)
+   try {
+      const [user] = await db('profiles').update({
+         profile_text: req.body.text
+      }).where({
+         user: userId
+      }).returning('profile_text')
+
+      res.json(user)
+   } catch (err) {
+      console.log(err)
+      res.status(500).json({
+         err: ' Server error'
+      })
+   }
+})
+
 router.get('/photos/:username', auth(false), async (req, res) => {
    try {
       const data = await db('photos').select('file_path', 'id').where({

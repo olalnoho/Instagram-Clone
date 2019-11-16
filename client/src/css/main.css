@@ -95,6 +95,16 @@
   color: #999;
 }
 
+.form textarea {
+  padding: 1rem;
+  width: 100%;
+  height: 20rem;
+  border: 1px solid black;
+  outline: 0;
+  margin-bottom: 2rem;
+  font-family: inherit;
+}
+
 .disabled-button {
   background-color: #c3e0fa !important;
 }
@@ -555,6 +565,10 @@
   margin-right: 4rem;
 }
 
+.profile__header__info--third p {
+  white-space: pre-line;
+}
+
 .profile__gallery {
   display: -ms-grid;
   display: grid;
@@ -570,6 +584,36 @@
      object-fit: cover;
   height: 30rem;
   width: 30rem;
+}
+
+.profiletext {
+  width: 70%;
+  height: 70%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.profiletext h2 {
+  text-align: center;
+}
+
+.profiletext .form {
+  width: 100%;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  margin: auto;
 }
 
 .upload {

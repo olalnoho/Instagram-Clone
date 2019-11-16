@@ -1,16 +1,19 @@
 import React, { useState } from 'react'
 import useHttp from '../../hooks/useHttp'
-import axios from '../../axios/axios'
 
-const UploadAvatar = ({ username }) => {
+const UploadAvatar = ({ username, setAvatar }) => {
    const [file, setFile] = useState()
    const [fileName, setFileName] = useState('Choose a file')
-   const { data, error, fetchData } = useHttp('/upload/avatar')
+   const { error, fetchData } = useHttp('/upload/avatar')
    const uploadFile = async e => {
       const formData = new FormData()
       formData.append('file', file)
       formData.append('username', username)
-      fetchData(formData)
+      const { file: avatar } = await fetchData(formData)
+      setAvatar(prev => ({
+         ...prev,
+         avatar
+      }))
    }
 
    const fileHandler = e => {
