@@ -16,6 +16,15 @@ const Profile = () => {
       return <div className="profile"></div>
    }
 
+   /*
+         {(showUploadModal || showAvatarModal || showProfileTextModal) && <Modal>
+         {showUploadModal && <Upload modalState={setShowUploadModal} addPhoto={addPhoto} username={username} />}
+         {showAvatarModal && <UploadAvatar modalState={setShowAvatarModal} setAvatar={setData} username={username} />}
+         {showProfileTextModal && <EditText initText={data.profile_text} modalState={setShowProfileTextModal} setProfileText={setData} />}
+      </Modal>}
+*/
+
+
    const { username, followers, followees, post_count, profile_text } = data || {}
    return (
       <div className="container flex" onClick={e => {
@@ -23,7 +32,7 @@ const Profile = () => {
          showAvatarModal && setShowAvatarModal(false)
          showProfileTextModal && setShowProfileTextModal(false)
       }}>
-
+         {/* 
          {showUploadModal && <Modal>
             <Upload modalState={setShowUploadModal} addPhoto={addPhoto} username={username} />
          </Modal>}
@@ -34,6 +43,11 @@ const Profile = () => {
 
          {showProfileTextModal && <Modal>
             <EditText initText={data.profile_text} modalState={setShowProfileTextModal} setProfileText={setData} />
+         </Modal>} */}
+         {(showUploadModal || showAvatarModal || showProfileTextModal) && <Modal>
+            {showUploadModal && <Upload modalState={setShowUploadModal} addPhoto={addPhoto} username={username} />}
+            {showAvatarModal && <UploadAvatar modalState={setShowAvatarModal} setAvatar={setData} username={username} />}
+            {showProfileTextModal && <EditText initText={data.profile_text} modalState={setShowProfileTextModal} setProfileText={setData} />}
          </Modal>}
 
          <Header />
@@ -46,6 +60,8 @@ const Profile = () => {
                      <button onClick={e => {
                         e.stopPropagation()
                         setShowAvatarModal(true)
+                        if (showUploadModal) setShowUploadModal(false)
+                        if (showProfileTextModal) setShowProfileTextModal(false)
                      }} className="btn btn--primary">Change avatar</button>
                   </div>
                   <div className="profile__header__info">
@@ -54,10 +70,14 @@ const Profile = () => {
                         <button onClick={e => {
                            e.stopPropagation()
                            setShowUploadModal(true)
+                           if (showAvatarModal) setShowAvatarModal(false)
+                           if (showProfileTextModal) setShowProfileTextModal(false)
                         }} className="btn btn--primary">Upload photo</button>
                         <button onClick={e => {
                            e.stopPropagation()
                            setShowProfileTextModal(true)
+                           if (showAvatarModal) setShowAvatarModal(false)
+                           if (showUploadModal) setShowUploadModal(false)
                         }} className="btn btn--primary">Edit Profile Text</button>
                      </div>
                      <div className="profile__header__info--second">
