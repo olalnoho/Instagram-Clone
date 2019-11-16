@@ -97,7 +97,7 @@ const OtherProfile = (props) => {
                   // @note
                   // Change src when deploying
                   return <div key={p.id} className="profile__gallery__image">
-                     <img src={`http://localhost:5000/${p.file_path}`} alt="uploaded by user" />
+                     <img src={`http://localhost:5000/${p.small_file_path}`} alt="uploaded by user" />
                   </div>
                })}
             </div>

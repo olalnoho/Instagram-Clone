@@ -95,7 +95,7 @@ const Profile = () => {
             <div className="profile__gallery">
                {photos && photos.map(p => {
                   return <div key={p.id} className="profile__gallery__image">
-                     <img src={p.file_path} alt="uploaded by user" />
+                     <img src={p.small_file_path} alt="uploaded by user" />
                   </div>
                })}
             </div>

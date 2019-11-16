@@ -18,15 +18,18 @@ router.post('/', auth(true), async (req, res) => {
 
    let folder = path.join(__dirname, '../public', username)
    let fullPath = path.resolve(folder, file.name)
+   let smallFullPath = path.resolve(folder, `small-${file.name}`)
    try {
       await fs.access(folder)
       // first null in resize means width will auto-scale to height.
       await sharp(file.data).resize(null, 600).toFile(fullPath)
+      await sharp(file.data).resize(null, 300).toFile(smallFullPath)
    } catch (err) {
       if (err.code === 'ENOENT') {
          try {
             await fs.mkdir(folder, { recursive: true })
             await sharp(file.data).resize(null, 600).toFile(fullPath)
+            await sharp(file.data).resize(null, 600).toFile(smallFullPath)
          } catch {
             return res.status(500).json({
                err: 'Unable to save image to filesystem'
@@ -43,11 +46,12 @@ router.post('/', auth(true), async (req, res) => {
    try {
       const [fileData] = await db('photos').insert({
          uploaded_by: req.userId,
-         file_path: `${username}/${file.name}`
-      }).returning(['file_path', 'id'])
+         file_path: `${username}/${file.name}`,
+         small_file_path: `${username}/small-${file.name}`
+      }).returning(['file_path', 'small_file_path', 'id'])
 
       return res.json({
-         file: fileData
+         file: fileData,
       })
 
    } catch (err) {
