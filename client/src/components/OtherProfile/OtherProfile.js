@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/AuthContext'
 import Header from '../UI/Header/Header'
 import useHttpGet from '../../hooks/useHttpGet'
 import axios from '../../axios/axios'
-const testAvatar = "https://scontent-arn2-2.cdninstagram.com/vp/fc9f9cdae239fe0319afc0cca853cd2d/5E5792C1/t51.2885-19/s150x150/66230601_898875400450053_5296268938865278976_n.jpg?_nc_ht=scontent-arn2-2.cdninstagram.com"
+
 const OtherProfile = (props) => {
    const [doesFollow, setDoesFollow] = useState(null)
    const [photos, setPhotos] = useState(null)
@@ -62,8 +62,11 @@ const OtherProfile = (props) => {
       followers,
       followees,
       post_count,
-      profile_text
+      profile_text,
+      avatar
    } = data || {}
+
+   console.log(avatar)
 
    return (
       <div className="container flex">
@@ -73,7 +76,7 @@ const OtherProfile = (props) => {
             {error ? <p className="error">Could not find user {uname}</p> :
                <header className="profile__header">
                   <div className="profile__header__avatar">
-                     <img src={testAvatar} alt="avatar" />
+                     <img src={`http://localhost:5000/${avatar}`} alt="avatar" />
                   </div>
                   <div className="profile__header__info">
                      <div className="profile__header__info--first">

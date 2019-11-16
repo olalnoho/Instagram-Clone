@@ -5,12 +5,14 @@ import Modal from '../UI/Modal/Modal'
 import Upload from '../Upload/Upload'
 import UploadAvatar from '../UploadAvatar/UploadAvatar'
 import EditText from './EditText'
+import ImageView from './ImageView'
 const Profile = () => {
    const { data, error, loading, setData } = useHttpGet('/profiles')
    const { data: photos, setData: addPhoto } = useHttpGet('/profiles/photos')
    const [showUploadModal, setShowUploadModal] = useState(false)
    const [showAvatarModal, setShowAvatarModal] = useState(false)
    const [showProfileTextModal, setShowProfileTextModal] = useState(false)
+   const [activePhoto, setActivePhoto] = useState(null)
 
    if (loading) {
       return <div className="profile"></div>
@@ -19,15 +21,20 @@ const Profile = () => {
    const { username, followers, followees, post_count, profile_text } = data || {}
    return (
       <div className="container flex" onClick={e => {
+         activePhoto && setActivePhoto(null)
          showUploadModal && setShowUploadModal(false)
          showAvatarModal && setShowAvatarModal(false)
          showProfileTextModal && setShowProfileTextModal(false)
       }}>
 
-         {(showUploadModal || showAvatarModal || showProfileTextModal) && <Modal>
+         {(showUploadModal || showAvatarModal || showProfileTextModal) && <Modal extraClass="action-modal">
             {showUploadModal && <Upload modalState={setShowUploadModal} addPhoto={addPhoto} username={username} />}
             {showAvatarModal && <UploadAvatar modalState={setShowAvatarModal} setAvatar={setData} username={username} />}
             {showProfileTextModal && <EditText initText={data.profile_text} modalState={setShowProfileTextModal} setProfileText={setData} />}
+         </Modal>}
+
+         {activePhoto && <Modal extraClass="photo-modal">
+            <ImageView photo={activePhoto} />
          </Modal>}
 
          <Header />
@@ -75,7 +82,11 @@ const Profile = () => {
             <div className="profile__gallery">
                {photos && photos.map(p => {
                   return <div key={p.id} className="profile__gallery__image">
-                     <img src={p.small_file_path} alt="uploaded by user" />
+                     <img
+                        onClick={e => {
+                           e.stopPropagation()
+                           setActivePhoto(p.file_path)
+                        }} src={p.small_file_path} alt="uploaded by user" />
                   </div>
                })}
             </div>
