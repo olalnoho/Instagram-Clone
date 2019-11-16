@@ -16,15 +16,6 @@ const Profile = () => {
       return <div className="profile"></div>
    }
 
-   /*
-         {(showUploadModal || showAvatarModal || showProfileTextModal) && <Modal>
-         {showUploadModal && <Upload modalState={setShowUploadModal} addPhoto={addPhoto} username={username} />}
-         {showAvatarModal && <UploadAvatar modalState={setShowAvatarModal} setAvatar={setData} username={username} />}
-         {showProfileTextModal && <EditText initText={data.profile_text} modalState={setShowProfileTextModal} setProfileText={setData} />}
-      </Modal>}
-*/
-
-
    const { username, followers, followees, post_count, profile_text } = data || {}
    return (
       <div className="container flex" onClick={e => {
@@ -32,18 +23,7 @@ const Profile = () => {
          showAvatarModal && setShowAvatarModal(false)
          showProfileTextModal && setShowProfileTextModal(false)
       }}>
-         {/* 
-         {showUploadModal && <Modal>
-            <Upload modalState={setShowUploadModal} addPhoto={addPhoto} username={username} />
-         </Modal>}
 
-         {showAvatarModal && <Modal>
-            <UploadAvatar modalState={setShowAvatarModal} setAvatar={setData} username={username} />
-         </Modal>}
-
-         {showProfileTextModal && <Modal>
-            <EditText initText={data.profile_text} modalState={setShowProfileTextModal} setProfileText={setData} />
-         </Modal>} */}
          {(showUploadModal || showAvatarModal || showProfileTextModal) && <Modal>
             {showUploadModal && <Upload modalState={setShowUploadModal} addPhoto={addPhoto} username={username} />}
             {showAvatarModal && <UploadAvatar modalState={setShowAvatarModal} setAvatar={setData} username={username} />}
