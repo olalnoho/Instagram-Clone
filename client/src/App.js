@@ -20,4 +20,8 @@ function App() {
   )
 }
 
+// @note
+// change html preconnect tag when deploying
+
+
 export default App;

@@ -33,7 +33,7 @@ const Profile = () => {
          </Modal>}
 
          {showProfileTextModal && <Modal>
-            <EditText modalState={setShowProfileTextModal} setProfileText={setData} />
+            <EditText initText={data.profile_text} modalState={setShowProfileTextModal} setProfileText={setData} />
          </Modal>}
 
          <Header />

@@ -43,7 +43,6 @@ router.get('/', auth(true), async (req, res) => {
 
 router.post('/edit_profile', auth(true), async (req, res) => {
    const { userId } = req
-   console.log(req.body)
    try {
       const [user] = await db('profiles').update({
          profile_text: req.body.text
