@@ -174,11 +174,14 @@
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
       &__image {
-        width: 33%;
+        width: 32%;
         height: 20rem;
+        &:not(:last-child) {
+          margin-right: 1%;
+        }
       }
     }
   }
