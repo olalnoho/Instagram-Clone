@@ -14,6 +14,7 @@
     "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "express-fileupload": "^1.1.6-alpha.6",
+    "image-size": "^0.8.3",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.20.1",
     "pg": "^7.12.1",

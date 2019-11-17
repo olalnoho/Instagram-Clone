@@ -60,8 +60,6 @@ const OtherProfile = (props) => {
       return <Redirect to="/profile" />
    }
 
-   console.log(activePhoto)
-
    const {
       username,
       followers,
