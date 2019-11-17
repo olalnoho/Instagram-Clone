@@ -1,8 +1,10 @@
 .container {
   position: relative;
   min-height: 100vh;
-  height: 1px;
+  height: 100;
   flex-direction: column;
+  background-color: #fff;
+  transition: all 0.3s;
 }
 
 .flex {

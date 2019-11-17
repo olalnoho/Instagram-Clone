@@ -4,6 +4,7 @@ import axios from '../../axios/axios'
 const Upload = ({ username, addPhoto, modalState }) => {
    const [file, setFile] = useState()
    const [fileName, setFileName] = useState('Choose a file')
+   const [desc, setDesc] = useState('')
    const [allTags, setAllTags] = useState([])
    const [tag, setTag] = useState('')
    const [error, setError] = useState(null)
@@ -15,8 +16,10 @@ const Upload = ({ username, addPhoto, modalState }) => {
       const formData = new FormData()
       formData.append('file', file)
       formData.append('username', username)
+      formData.append('description', desc)
       try {
          const { data } = await axios.post('/upload', formData)
+         console.log(data)
          addPhoto(prev => {
             return [data.file, ...prev]
          })
@@ -54,7 +57,11 @@ const Upload = ({ username, addPhoto, modalState }) => {
             Upload a photo
          </h2>
          <div className="form">
-            <input type="text" placeholder="Image description" />
+            <input
+               type="text"
+               placeholder="Image description"
+               value={desc}
+               onChange={e => setDesc(e.target.value)} />
             <input
                type="file"
                name="file"

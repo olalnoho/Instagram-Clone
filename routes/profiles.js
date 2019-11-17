@@ -61,7 +61,7 @@ router.post('/edit_profile', auth(true), async (req, res) => {
 
 router.get('/photos/:username', auth(false), async (req, res) => {
    try {
-      const data = await db('photos').select('file_path', 'small_file_path', 'id').where({
+      const data = await db('photos').select('file_path', 'small_file_path', 'id', 'description').where({
          uploaded_by: req.params.username
       })
 
@@ -75,7 +75,7 @@ router.get('/photos/:username', auth(false), async (req, res) => {
 
 router.get('/photos', auth(true), async (req, res) => {
    try {
-      const data = await db('photos').select('file_path', 'small_file_path', 'id').where({
+      const data = await db('photos').select('file_path', 'small_file_path', 'id', 'description').where({
          uploaded_by: req.userId
       })
 

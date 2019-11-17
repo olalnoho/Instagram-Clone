@@ -66,8 +66,6 @@ const OtherProfile = (props) => {
       avatar
    } = data || {}
 
-   console.log(avatar)
-
    return (
       <div className="container flex">
 
