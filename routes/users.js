@@ -19,12 +19,11 @@ router.post('/register', async (req, res) => {
             username,
             email,
             password: hashedPw
-         })
-         .returning('*')
+         }, '*')
 
-         await db('profiles').insert({
-            user: user.id
-         })
+      await db('profiles').insert({
+         user: user.id
+      })
 
       return res.json({
          user,

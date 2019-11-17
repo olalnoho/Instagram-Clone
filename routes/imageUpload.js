@@ -8,7 +8,9 @@ const auth = require('../middleware/auth')
 
 router.post('/', auth(true), async (req, res) => {
    const { file } = req.files || {}
-   const { username, description } = req.body
+   const { username, description, tags: unformattedTags } = req.body
+
+   const tags = unformattedTags.split(',')
 
    if (!file) {
       return res.status(400).json({
@@ -48,8 +50,9 @@ router.post('/', auth(true), async (req, res) => {
          uploaded_by: req.userId,
          file_path: `${username}/${file.name}`,
          small_file_path: `${username}/small-${file.name}`,
-         description
-      }).returning(['file_path', 'small_file_path', 'id', 'description'])
+         description,
+         tags
+      }, ['file_path', 'small_file_path', 'id', 'description'])
 
       return res.json({
          file: fileData,
