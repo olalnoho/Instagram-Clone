@@ -4,10 +4,13 @@ import { AuthContext } from '../../context/AuthContext'
 import Header from '../UI/Header/Header'
 import useHttpGet from '../../hooks/useHttpGet'
 import axios from '../../axios/axios'
+import ImageView from '../Profile/ImageView'
+import Modal from '../UI/Modal/Modal'
 
 const OtherProfile = (props) => {
    const [doesFollow, setDoesFollow] = useState(null)
    const [photos, setPhotos] = useState(null)
+   const [activePhoto, setActivePhoto] = useState(null)
    const uname = props.match.params.username
    const { user } = useContext(AuthContext)
 
@@ -57,6 +60,8 @@ const OtherProfile = (props) => {
       return <Redirect to="/profile" />
    }
 
+   console.log(activePhoto)
+
    const {
       username,
       followers,
@@ -67,43 +72,56 @@ const OtherProfile = (props) => {
    } = data || {}
 
    return (
-      <div className="container flex">
-
-         <Header />
-         <div className="profile">
-            {error ? <p className="error">Could not find user {uname}</p> :
-               <header className="profile__header">
-                  <div className="profile__header__avatar">
-                     <img src={`http://localhost:5000/${avatar}`} alt="avatar" />
-                  </div>
-                  <div className="profile__header__info">
-                     <div className="profile__header__info--first">
-                        <p className="lead"> {username} </p>
-                        {user && <button onClick={followUser} className="btn btn--primary"> {doesFollow ? 'Unfollow' : 'Follow'} </button>}
+      <>
+         {activePhoto && <Modal extraClass="photo-modal">
+            <ImageView photo={`http://localhost:5000/${activePhoto}`} />
+         </Modal>}
+         <div className="container flex" onClick={e => {
+            activePhoto && setActivePhoto(null)
+         }}>
+            <Header />
+            <div className="profile">
+               {error ? <p className="error">Could not find user {uname}</p> :
+                  <header className="profile__header">
+                     <div className="profile__header__avatar">
+                        <img src={`http://localhost:5000/${avatar}`} alt="avatar" />
                      </div>
-                     <div className="profile__header__info--second">
-                        <p className="lead"><strong> {post_count} </strong> posts</p>
-                        <p className="lead"><strong> {followers} </strong> followers </p>
-                        <p className="lead"><strong> {followees} </strong> following</p>
+                     <div className="profile__header__info">
+                        <div className="profile__header__info--first">
+                           <p className="lead"> {username} </p>
+                           {user && <button onClick={followUser} className="btn btn--primary"> {doesFollow ? 'Unfollow' : 'Follow'} </button>}
+                        </div>
+                        <div className="profile__header__info--second">
+                           <p className="lead"><strong> {post_count} </strong> posts</p>
+                           <p className="lead"><strong> {followers} </strong> followers </p>
+                           <p className="lead"><strong> {followees} </strong> following</p>
+                        </div>
+                        <div className="profile__header__info--third">
+                           <p className="lead">
+                              {profile_text}
+                           </p>
+                        </div>
                      </div>
-                     <div className="profile__header__info--third">
-                        <p className="lead">
-                           {profile_text}
-                        </p>
+                  </header>}
+               <div className="profile__gallery">
+                  {photos && photos.map(p => {
+                     // @note
+                     // Change src when deploying
+                     return <div key={p.id} className="profile__gallery__image">
+                        <img
+                           onClick={e => {
+                              e.stopPropagation()
+                              setActivePhoto(p.file_path)
+                           }} src={`http://localhost:5000/${p.small_file_path}`} alt="uploaded by user" />
+                        <label>
+                           {p.description}
+                        </label>
                      </div>
-                  </div>
-               </header>}
-            <div className="profile__gallery">
-               {photos && photos.map(p => {
-                  // @note
-                  // Change src when deploying
-                  return <div key={p.id} className="profile__gallery__image">
-                     <img src={`http://localhost:5000/${p.small_file_path}`} alt="uploaded by user" />
-                  </div>
-               })}
+                  })}
+               </div>
             </div>
          </div>
-      </div>
+      </>
    )
 }
 
