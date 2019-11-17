@@ -789,6 +789,17 @@
   }
 }
 
+@media only screen and (max-width: 700px) {
+  .imageview__left {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
+  }
+  .imageview__right {
+    display: none;
+  }
+}
+
 .upload {
   width: 90%;
   height: 60%;

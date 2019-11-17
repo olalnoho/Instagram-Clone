@@ -158,3 +158,14 @@
     }
   }
 }
+
+@media only screen and(max-width: 700px) {
+  .imageview {
+    &__left {
+      flex: 1;
+    }
+    &__right {
+      display: none;
+    }
+  }
+}
