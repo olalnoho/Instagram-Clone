@@ -18,7 +18,7 @@
 }
 
 .photo-modal {
-  max-width: 93.5rem;
+  max-width: 120rem;
   width: 100%;
   display: flex;
 
@@ -34,5 +34,37 @@
 
   to {
     opacity: 1;
+  }
+}
+
+
+@media only screen and (max-width: 1300px) {
+  .photo-modal {
+    max-width: 100rem;
+    width: 80%;
+  }
+
+  .action-modal {
+    width: 60%;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  .photo-modal {
+    width: 80%;
+  }
+
+  .action-modal {
+    width: 60%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .photo-modal {
+    width: 80%;
+  }
+
+  .action-modal {
+    width: 80%;
   }
 }
