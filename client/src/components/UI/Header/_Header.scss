@@ -67,3 +67,42 @@
     }
   }
 }
+
+@media only screen and(max-width: 800px) {
+  .header {
+    &__items {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+  }
+}
+
+@media only screen and(max-width: 400px) {
+  .header {
+    min-height: 11rem;
+    &__items {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+
+      &--logo {
+        order: 0;
+        justify-content: center;
+        margin-bottom: 1rem;
+        width: 50%;
+        margin-right: 1rem;
+      }
+
+      &--actions {
+        order: 1;
+      }
+
+      &--search {
+        padding: 1rem;
+        margin: auto;
+        order: 3;
+      }
+    }
+  }
+}
