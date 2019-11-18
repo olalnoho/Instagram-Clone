@@ -19,6 +19,7 @@
 
 .photo-modal {
   max-width: 93.56rem;
+  // So child elements have height.
   width: 100%;
   display: flex;
 
@@ -36,7 +37,6 @@
     opacity: 1;
   }
 }
-
 
 @media only screen and (max-width: 1300px) {
   // .photo-modal {

@@ -124,17 +124,13 @@
 .imageview {
   display: flex;
   flex: 1;
+  min-height: 40rem;
   &__left {
-    // flex: 0.7;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(56, 56, 56);
+    background-color: #000;
     img {
-      // max-height: 60rem;
-      // min-height: 42rem;
-      // max-width: 60rem;
-      // min-width: 42rem;
       width: 100%;
       object-fit: cover;
     }

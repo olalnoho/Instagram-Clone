@@ -5,6 +5,7 @@ const ImageView = ({ photo }) => {
    const [mWidth, setMWidth] = useState(935)
 
    const imgLoad = ({ target }) => {
+      console.dir(target)
       if ((target.width + 300) < 935) {
          setMWidth(target.width + 300)
       }
