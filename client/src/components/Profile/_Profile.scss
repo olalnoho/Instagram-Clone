@@ -139,6 +139,7 @@
     font-size: 1.2rem;
     // padding: 1rem 0.5rem 0.2rem 0.5rem;
     min-width: 30rem;
+    max-width: 30rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -170,11 +171,22 @@
       max-height: 30rem;
       .comment {
         img {
+          align-self: flex-start;
           margin-right: 1rem;
           height: 3.2rem;
           width: 3.2rem;
           object-fit: cover;
           border-radius: 50%;
+        }
+
+        strong {
+          align-self: flex-start;
+          margin-right: 1rem;
+        }
+
+        p {
+          font-size: 1.2rem;
+          align-self: flex-start;
         }
         display: flex;
         align-items: center;
