@@ -72,7 +72,7 @@ const OtherProfile = (props) => {
    return (
       <>
          {activePhoto && <Modal extraClass="photo-modal">
-            <ImageView photo={`http://localhost:5000/${activePhoto}`} />
+            <ImageView avatar={`http://localhost:5000/${avatar}`} username={uname} photo={`http://localhost:5000/${activePhoto}`} />
          </Modal>}
          <div className="container flex" onClick={e => {
             activePhoto && setActivePhoto(null)

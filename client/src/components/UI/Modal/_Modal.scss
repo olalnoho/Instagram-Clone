@@ -8,6 +8,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  transform: translateX(-50%) translateY(calc(-50% - .5px));
+
   box-shadow: 0.3rem 0.2rem 0.8rem black;
   animation: fade-in 0.5s ease;
 }

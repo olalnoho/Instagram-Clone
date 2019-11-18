@@ -124,7 +124,6 @@
 .imageview {
   display: flex;
   flex: 1;
-  min-height: 40rem;
   &__left {
     display: flex;
     justify-content: center;
@@ -137,11 +136,46 @@
   }
 
   &__right {
-    min-width: 24rem;
-    padding: 1rem;
+    font-size: 1.2rem;
+    // padding: 1rem 0.5rem 0.2rem 0.5rem;
+    min-width: 30rem;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    flex: 0.3;
+
+    &-header {
+      align-items: center;
+      display: flex;
+      padding: 1rem;
+      // height: 15%;
+      img {
+        height: 4.2rem;
+        width: 4.2rem;
+        object-fit: cover ;
+        border-radius: 50%;
+      }
+      span {
+        font-weight: bold;
+        padding: 1rem;
+        font-size: 1.2rem;
+      }
+    }
+
+    &-bottom {
+      margin-top: auto;
+      p {
+        text-align: center;
+      }
+      .form {
+        width: 100%;
+        padding: 0.4rem;
+        input {
+          text-overflow: ellipsis;
+          width: 90%;
+          border-bottom: 1px solid black;
+        }
+      }
+    }
   }
 }
 
@@ -155,6 +189,12 @@
         }
       }
     }
+  }
+}
+
+@media only screen and(max-width: 1000px) {
+  .imageview {
+    min-height: 40rem;
   }
 }
 

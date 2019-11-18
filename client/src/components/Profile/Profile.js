@@ -18,13 +18,13 @@ const Profile = () => {
       return <div className="profile"></div>
    }
 
-   const { username, followers, followees, post_count, profile_text } = data || {}
+   const { username, followers, followees, post_count, profile_text, avatar } = data || {}
    return (
       <>
          {activePhoto && <Modal extraClass="photo-modal">
-            <ImageView photo={activePhoto} />
+            <ImageView avatar={avatar} username={username} photo={activePhoto} />
          </Modal>}
-         
+
          <div className="container flex" onClick={e => {
             activePhoto && setActivePhoto(null)
             showUploadModal && setShowUploadModal(false)
@@ -45,7 +45,7 @@ const Profile = () => {
                      <div className="profile__header__avatar">
                         {/* The filename for avatar will always be the same
                      so the date on img src acts as cachebreaker */}
-                        <img src={data.avatar + '?' + new Date().getTime()} alt="avatar" />
+                        <img src={avatar + '?' + new Date().getTime()} alt="avatar" />
                         <button onClick={e => {
                            e.stopPropagation()
                            setShowAvatarModal(true)

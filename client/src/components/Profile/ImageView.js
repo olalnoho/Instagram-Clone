@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react'
-
-const ImageView = ({ photo }) => {
+import React, { useState, useEffect, useContext } from 'react'
+import { AuthContext } from '../../context/AuthContext'
+const ImageView = ({ photo, avatar, username }) => {
+   const { user } = useContext(AuthContext)
    const [loading, setLoading] = useState(true)
-   const [mWidth, setMWidth] = useState(935)
+   const [mWidth, setMWidth] = useState(1000)
 
    const imgLoad = ({ target }) => {
       if ((target.width + 300) < 935) {
@@ -25,9 +26,17 @@ const ImageView = ({ photo }) => {
                alt="active" />
          </div>
          <div className="imageview__right">
+            <header className="imageview__right-header">
+               <img src={avatar} />
+               <span> {username}  </span>
+            </header>
             <p className="lead">
-               Hello
             </p>
+            <div className="imageview__right-bottom">
+               {user ? <form className="form">
+                  <input type="text" />
+               </form> : <p className="lead"> Log in to comment </p>}
+            </div>
          </div>
       </div>
    )
