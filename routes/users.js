@@ -21,9 +21,11 @@ router.post('/register', async (req, res) => {
             password: hashedPw
          }, '*')
 
-      await db('profiles').insert({
+      const profile = await db('profiles').insert({
          user: user.id
-      })
+      }, 'avatar')
+
+      user.avatar = profile
 
       return res.json({
          user,

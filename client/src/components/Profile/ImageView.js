@@ -3,7 +3,9 @@ import useHttpGet from '../../hooks/useHttpGet'
 import useHttpPost from '../../hooks/useHttp'
 import { AuthContext } from '../../context/AuthContext'
 const ImageView = ({ photo, avatar, username, id }) => {
+
    const scrollDiv = useRef()
+
    const { data: comments,
       loading: commentLoad,
       setData: setComments
@@ -29,6 +31,7 @@ const ImageView = ({ photo, avatar, username, id }) => {
          .style.maxWidth = `${mWidth}px`
    }, [mWidth])
 
+
    useEffect(() => {
       scrollDiv.current &&
          scrollDiv.current.addEventListener('scroll', () => {
@@ -36,14 +39,8 @@ const ImageView = ({ photo, avatar, username, id }) => {
          }, { once: true })
    }, [scrollDiv])
 
-   const shouldAutoScroll = box => {
-      if (box.scrollHeight - (box.scrollTop + box.offsetHeight) < 300) {
-         return true
-      }
-      return false
-   }
-
    useEffect(() => {
+      // It's wrapped in STO for event queue
       setTimeout(() => {
          const box = document.querySelector('.imageview__right-comments')
          if (!hasScrolled || shouldAutoScroll(box)) {
@@ -53,17 +50,26 @@ const ImageView = ({ photo, avatar, username, id }) => {
 
    }, [comments, hasScrolled])
 
+   const shouldAutoScroll = box => {
+      // 400 is arbitrary and something i
+      // landed on after some trial and error
+      if (box.scrollHeight - (box.scrollTop + box.offsetHeight) < 400) {
+         return true
+      }
+      return false
+   }
+
+
    const submitComment = e => {
       e.preventDefault()
-      fetchData({
-         comment: commentText
-      }).then(res => {
-         const obj = { comment: res.comment, username, avatar, created_at: res.created_at }
-         setComments(prev => {
-            return [...prev, obj]
+      fetchData({ comment: commentText })
+         .then(res => {
+            const obj = { comment: res.comment, username, avatar: user.avatar, created_at: res.created_at }
+            setComments(prev => {
+               return [...prev, obj]
+            })
+            setCommentText('')
          })
-         setCommentText('')
-      })
    }
 
    return (
@@ -83,9 +89,9 @@ const ImageView = ({ photo, avatar, username, id }) => {
                {commentLoad ? <p>Loading...</p> :
                   comments.map(comment => {
                      return <div key={comment.created_at} className="comment">
-                        <img src={comment.avatar} alt="avatar" />
+                        <img src={`http://localhost:5000/${comment.avatar}`} alt="avatar" />
                         <strong className="name">
-                           {username}
+                           {comment.username}
                         </strong>
                         <p className="lead"> {comment.comment} </p>
                      </div>

@@ -17,6 +17,7 @@ router.post('/login', async (req, res) => {
       .select('*')
       .where({ email: identifier })
       .orWhere({ username: identifier })
+      .innerJoin('profiles', 'profiles.user', 'users.id')
 
    if (!user) {
       return res
@@ -40,9 +41,13 @@ router.post('/login', async (req, res) => {
 
 router.get('/me', auth(true), async (req, res) => {
    try {
+      // @note
+      // join with profile for avatar
       const [user] = await db('users')
          .select('*')
-         .where({ id: req.userId })
+         .where({ "users.id": req.userId })
+         .innerJoin('profiles', 'profiles.user', 'users.id')
+
       if (!user) {
          res.status(404).json({
             err: 'User not found'
@@ -50,6 +55,8 @@ router.get('/me', auth(true), async (req, res) => {
       }
       res.json(user)
    } catch (err) {
+      console.log(err);
+      
       res.status(500).json({
          err: 'Error when retrieving user data'
       })
