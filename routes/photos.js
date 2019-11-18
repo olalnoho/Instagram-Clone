@@ -12,7 +12,8 @@ router.get('/:id', async (req, res) => {
       FROM photo_comments pc
       INNER JOIN users u ON pc.user = u.id
       INNER JOIN profiles p ON p.user = u.id
-      WHERE pc.photo = ?;
+      WHERE pc.photo = ?
+      ORDER BY created_at;
       `, req.params.id)
 
       return res.json(data.rows)
@@ -25,7 +26,6 @@ router.get('/:id', async (req, res) => {
 })
 
 router.post('/:id', auth(true), async (req, res) => {
-   console.log('got here')
    const { userId } = req
 
    try {
@@ -45,8 +45,6 @@ router.post('/:id', auth(true), async (req, res) => {
       }
       return res.status(500).json({err})
    }
-
-   console.log('Got here')
 })
 
 module.exports = router
