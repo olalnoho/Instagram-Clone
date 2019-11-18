@@ -136,12 +136,6 @@
   }
 
   &__right {
-    img {
-      height: 4.2rem;
-      width: 4.2rem;
-      object-fit: cover;
-      border-radius: 50%;
-    }
     font-size: 1.2rem;
     // padding: 1rem 0.5rem 0.2rem 0.5rem;
     min-width: 30rem;
@@ -154,13 +148,14 @@
       display: flex;
       padding: 1rem;
       margin-bottom: 1rem;
+      border-bottom: 1px solid #888;
       // height: 15%;
-      // img {
-      //   height: 4.2rem;
-      //   width: 4.2rem;
-      //   object-fit: cover;
-      //   border-radius: 50%;
-      // }
+      img {
+        height: 4.2rem;
+        width: 4.2rem;
+        object-fit: cover;
+        border-radius: 50%;
+      }
       span {
         font-weight: bold;
         padding: 1rem;
@@ -174,9 +169,12 @@
       overflow-y: auto;
       max-height: 30rem;
       .comment {
-
         img {
           margin-right: 1rem;
+          height: 3.2rem;
+          width: 3.2rem;
+          object-fit: cover;
+          border-radius: 50%;
         }
         display: flex;
         align-items: center;

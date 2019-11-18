@@ -8,7 +8,8 @@ router.get('/:id', async (req, res) => {
       SELECT
          pc.comment,
          u.username,
-         p.avatar
+         p.avatar,
+         pc.created_at
       FROM photo_comments pc
       INNER JOIN users u ON pc.user = u.id
       INNER JOIN profiles p ON p.user = u.id

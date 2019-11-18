@@ -780,14 +780,6 @@
           justify-content: center;
 }
 
-.imageview__right img {
-  height: 4.2rem;
-  width: 4.2rem;
-  -o-object-fit: cover;
-     object-fit: cover;
-  border-radius: 50%;
-}
-
 .imageview__right-header {
   -webkit-box-align: center;
       -ms-flex-align: center;
@@ -797,6 +789,15 @@
   display: flex;
   padding: 1rem;
   margin-bottom: 1rem;
+  border-bottom: 1px solid #888;
+}
+
+.imageview__right-header img {
+  height: 4.2rem;
+  width: 4.2rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
 }
 
 .imageview__right-header span {
@@ -823,6 +824,11 @@
 
 .imageview__right-comments .comment img {
   margin-right: 1rem;
+  height: 3.2rem;
+  width: 3.2rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
 }
 
 .imageview__right-comments .comment:not(:last-child) {
