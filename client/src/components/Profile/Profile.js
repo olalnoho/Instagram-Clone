@@ -22,7 +22,7 @@ const Profile = () => {
    return (
       <>
          {activePhoto && <Modal extraClass="photo-modal">
-            <ImageView avatar={avatar} username={username} photo={activePhoto} />
+            <ImageView avatar={avatar} username={username} photo={activePhoto.path} id={activePhoto.id} />
          </Modal>}
 
          <div className="container flex" onClick={e => {
@@ -87,7 +87,7 @@ const Profile = () => {
                         <img
                            onClick={e => {
                               e.stopPropagation()
-                              setActivePhoto(p.file_path)
+                              setActivePhoto({ path: p.file_path, id: p.id })
                            }} src={p.small_file_path} alt="uploaded by user" />
                         <label>
                            {p.description}

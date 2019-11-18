@@ -5,6 +5,7 @@ const auth = require('./routes/auth')
 const users = require('./routes/users')
 const profiles = require('./routes/profiles')
 const imageUpload = require('./routes/imageUpload')
+const photos = require('./routes/photos')
 
 const app = express()
 app.use(express.static(
@@ -16,4 +17,5 @@ app.use('/auth', auth)
 app.use('/users', users)
 app.use('/profiles', profiles)
 app.use('/upload', imageUpload)
+app.use('/photos', photos)
 app.listen(5000)

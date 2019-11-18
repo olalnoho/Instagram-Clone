@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { AuthContext } from '../../context/AuthContext'
-const ImageView = ({ photo, avatar, username }) => {
+const ImageView = ({ photo, avatar, username, id }) => {
+   console.log(id)
    const { user } = useContext(AuthContext)
    const [loading, setLoading] = useState(true)
-   const [mWidth, setMWidth] = useState(1000)
+   const [mWidth, setMWidth] = useState(935)
 
    const imgLoad = ({ target }) => {
       if ((target.width + 300) < 935) {
@@ -27,7 +28,7 @@ const ImageView = ({ photo, avatar, username }) => {
          </div>
          <div className="imageview__right">
             <header className="imageview__right-header">
-               <img src={avatar} />
+               <img src={avatar} alt="avatar"/>
                <span> {username}  </span>
             </header>
             <p className="lead">

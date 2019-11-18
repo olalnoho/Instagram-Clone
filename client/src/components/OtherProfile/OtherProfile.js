@@ -72,7 +72,7 @@ const OtherProfile = (props) => {
    return (
       <>
          {activePhoto && <Modal extraClass="photo-modal">
-            <ImageView avatar={`http://localhost:5000/${avatar}`} username={uname} photo={`http://localhost:5000/${activePhoto}`} />
+            <ImageView avatar={`http://localhost:5000/${avatar}`} username={uname} photo={`http://localhost:5000/${activePhoto.path}`} id={activePhoto.id} />
          </Modal>}
          <div className="container flex" onClick={e => {
             activePhoto && setActivePhoto(null)
@@ -109,7 +109,7 @@ const OtherProfile = (props) => {
                         <img
                            onClick={e => {
                               e.stopPropagation()
-                              setActivePhoto(p.file_path)
+                              setActivePhoto({ path: p.file_path, id: p.id })
                            }} src={`http://localhost:5000/${p.small_file_path}`} alt="uploaded by user" />
                         <label>
                            {p.description}
