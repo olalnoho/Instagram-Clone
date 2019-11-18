@@ -124,7 +124,6 @@
 .imageview {
   display: flex;
   flex: 1;
-
   &__left {
     // flex: 0.7;
     display: flex;
@@ -132,17 +131,17 @@
     align-items: center;
     background-color: rgb(56, 56, 56);
     img {
-      max-height: 60rem;
-      min-height: 42rem;
-      max-width: 60rem;
-      min-width: 42rem;
+      // max-height: 60rem;
+      // min-height: 42rem;
+      // max-width: 60rem;
+      // min-width: 42rem;
       width: 100%;
       object-fit: cover;
     }
   }
 
   &__right {
-    min-width: 30rem;
+    min-width: 24rem;
     padding: 1rem;
     display: flex;
     justify-content: center;

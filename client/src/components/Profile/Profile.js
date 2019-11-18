@@ -24,6 +24,7 @@ const Profile = () => {
          {activePhoto && <Modal extraClass="photo-modal">
             <ImageView photo={activePhoto} />
          </Modal>}
+         
          <div className="container flex" onClick={e => {
             activePhoto && setActivePhoto(null)
             showUploadModal && setShowUploadModal(false)
