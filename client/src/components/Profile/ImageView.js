@@ -6,20 +6,23 @@ import { AuthContext } from '../../context/AuthContext'
 
 const ImageView = ({ photo, avatar, username, id }) => {
    const { user } = useContext(AuthContext)
-   const [loading, setLoading] = useState(true)
+   const [imageLoading, setImageLoading] = useState(true)
    const [commentText, setCommentText] = useState('')
    const [mWidth, setMWidth] = useState(935)
 
    const { data: comments, loading: commentLoad, setData: setComments } = useHttpGet(`/photos/${id}`)
    const { fetchData } = useHttpPost(`/photos/${id}`)
-   const ref = useAutoScroll(400, [commentLoad, loading, comments])
+
+   // imageLoading is a dependency because the modal
+   // has 'display: none' if image is not loaded
+   const ref = useAutoScroll(400, [commentLoad, imageLoading, comments])
 
    const imgLoad = ({ target }) => {
       // For resizing min width on Image modal
       if ((target.width + 300) < 935) {
          setMWidth(target.width + 300)
       }
-      setLoading(false)
+      setImageLoading(false)
    }
 
    useEffect(() => {
@@ -40,7 +43,7 @@ const ImageView = ({ photo, avatar, username, id }) => {
    }
 
    return (
-      <div className="imageview" style={{ display: loading ? 'none' : 'flex' }}>
+      <div className="imageview" style={{ display: imageLoading ? 'none' : 'flex' }}>
          <div className="imageview__left">
             <img
                onLoad={imgLoad}
