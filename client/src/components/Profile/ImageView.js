@@ -2,7 +2,13 @@ import React, { useState, useEffect, useContext, useRef } from 'react'
 import useHttpGet from '../../hooks/useHttpGet'
 import useHttpPost from '../../hooks/useHttp'
 import { AuthContext } from '../../context/AuthContext'
+import { useAutoScroll } from '../../hooks/useAutoScroll'
 const ImageView = ({ photo, avatar, username, id }) => {
+   const { user } = useContext(AuthContext)
+   const [loading, setLoading] = useState(true)
+   const [commentText, setCommentText] = useState('')
+   const [mWidth, setMWidth] = useState(935)
+   
    const {
       data: comments,
       loading: commentLoad,
@@ -12,12 +18,8 @@ const ImageView = ({ photo, avatar, username, id }) => {
    const { fetchData } = useHttpPost(`/photos/${id}`)
 
    const scrollDiv = useRef()
-   const { user } = useContext(AuthContext)
-
-   const [loading, setLoading] = useState(true)
-   const [commentText, setCommentText] = useState('')
-   const [mWidth, setMWidth] = useState(935)
-   const [hasScrolled, setHasScrolled] = useState(false)
+   useAutoScroll(scrollDiv, 400, [commentLoad, loading, comments])
+   
 
    const imgLoad = ({ target }) => {
       // For resizing min width on Image modal
@@ -31,29 +33,6 @@ const ImageView = ({ photo, avatar, username, id }) => {
       document.querySelector('.photo-modal')
          .style.maxWidth = `${mWidth}px`
    }, [mWidth])
-
-
-   useEffect(() => {
-      scrollDiv.current &&
-         scrollDiv.current.addEventListener('scroll', () => {
-            setHasScrolled(true)
-         }, { once: true })
-   }, [scrollDiv])
-
-   useEffect(() => {
-      if (!hasScrolled || shouldAutoScroll(scrollDiv.current)) {
-         scrollDiv.current.scrollTop = scrollDiv.current.scrollHeight
-      }
-   }, [hasScrolled, commentLoad, loading, comments])
-
-   const shouldAutoScroll = box => {
-      // 400 is arbitrary
-      if (box.scrollHeight - (box.scrollTop + box.offsetHeight) < 400) {
-         return true
-      }
-      return false
-   }
-
 
    const submitComment = e => {
       e.preventDefault()
