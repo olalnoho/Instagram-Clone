@@ -1,26 +1,36 @@
-import { useEffect, useState, useCallback } from 'react'
+import {
+   useEffect,
+   useState,
+   useCallback,
+   useRef
+} from 'react'
 
-export const useAutoScroll = (ref, when, deps) => {
+const useAutoScroll = (when, deps) => {
+   const el = useRef()
    const [hasScrolled, setHasScrolled] = useState(false)
 
-   const shouldAutoScroll = useCallback(box => {
-      if (box.scrollHeight - (box.scrollTop + box.offsetHeight) < when) {
+   const shouldAutoScroll = useCallback(() => {
+      if (el.current.scrollHeight - (el.current.scrollTop + el.current.offsetHeight) < when) {
          return true
       }
       return false
    }, [when])
 
    useEffect(() => {
-      if (!hasScrolled || shouldAutoScroll(ref.current)) {
-         ref.current.scrollTop = ref.current.scrollHeight
+      if (!hasScrolled || shouldAutoScroll(el.current)) {
+         el.current.scrollTop = el.current.scrollHeight
       }
       // lint is disabled for spread operator in dependency array
       // eslint-disable-next-line
-   }, [...deps, hasScrolled, ref, shouldAutoScroll])
+   }, [...deps, hasScrolled, el, shouldAutoScroll])
 
    useEffect(() => {
-      ref.current.addEventListener('scroll', () => {
+      el.current.addEventListener('scroll', () => {
          setHasScrolled(true)
       }, { once: true })
-   }, [ref])
+   }, [el])
+
+   return el
 }
+
+export default useAutoScroll

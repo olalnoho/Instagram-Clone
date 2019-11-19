@@ -1,25 +1,18 @@
-import React, { useState, useEffect, useContext, useRef } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import useHttpGet from '../../hooks/useHttpGet'
 import useHttpPost from '../../hooks/useHttp'
+import useAutoScroll from '../../hooks/useAutoScroll'
 import { AuthContext } from '../../context/AuthContext'
-import { useAutoScroll } from '../../hooks/useAutoScroll'
+
 const ImageView = ({ photo, avatar, username, id }) => {
    const { user } = useContext(AuthContext)
    const [loading, setLoading] = useState(true)
    const [commentText, setCommentText] = useState('')
    const [mWidth, setMWidth] = useState(935)
-   
-   const {
-      data: comments,
-      loading: commentLoad,
-      setData: setComments
-   } = useHttpGet(`/photos/${id}`)
 
+   const { data: comments, loading: commentLoad, setData: setComments } = useHttpGet(`/photos/${id}`)
    const { fetchData } = useHttpPost(`/photos/${id}`)
-
-   const scrollDiv = useRef()
-   useAutoScroll(scrollDiv, 400, [commentLoad, loading, comments])
-   
+   const ref = useAutoScroll(400, [commentLoad, loading, comments])
 
    const imgLoad = ({ target }) => {
       // For resizing min width on Image modal
@@ -59,7 +52,7 @@ const ImageView = ({ photo, avatar, username, id }) => {
                <img src={avatar + '?' + new Date().getTime()} alt="avatar" />
                <span> {username}  </span>
             </header>
-            <div className="imageview__right-comments" ref={scrollDiv}>
+            <div className="imageview__right-comments" ref={ref}>
                {commentLoad ? <p>Loading...</p> :
                   comments.map(comment => {
                      return <div key={comment.created_at} className="comment">
