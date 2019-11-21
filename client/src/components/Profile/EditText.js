@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import useHttp from '../../hooks/useHttp'
 const EditText = ({ initText, setProfileText, modalState }) => {
    const [text, setText] = useState(initText)
-   const { fetchData, error } = useHttp('/profiles/edit_profile')
+   const { fetchData, error } = useHttp('/api/profiles/edit_profile')
 
    const sendData = async e => {
       e.preventDefault()

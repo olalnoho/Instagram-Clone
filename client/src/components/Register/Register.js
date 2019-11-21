@@ -8,7 +8,7 @@ const Register = () => {
    const [username, setUsername] = useState('')
    const [email, setEmail] = useState('')
    const [password, setPassword] = useState('')
-   const { fetchData, data, loading, error } = useHttp('/users/register')
+   const { fetchData, data, loading, error } = useHttp('/api/users/register')
 
    if (user) {
       return <Redirect to="/profile" />

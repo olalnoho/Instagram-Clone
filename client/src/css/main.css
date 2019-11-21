@@ -159,7 +159,7 @@
 .btn--thirdary {
   font-weight: bold;
   color: #ddd !important;
-  background-color: #913547 !important;
+  background-color: crimson;
 }
 
 .tag {
@@ -805,6 +805,10 @@
   font-weight: bold;
   padding: 1rem;
   font-size: 1.2rem;
+}
+
+.imageview__right-header button {
+  margin-left: auto;
 }
 
 .imageview__right-comments {

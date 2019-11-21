@@ -11,7 +11,7 @@ export default props => {
    const [authLoading, setAuthLoading] = useState(true)
    useEffect(() => {
       if (localStorage.getItem('token')) {
-         axios.get('/auth/me')
+         axios.get('/api/auth/me')
             .then(res => {
                setUser(res.data)
                setAuthLoading(false)

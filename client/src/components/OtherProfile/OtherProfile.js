@@ -14,11 +14,11 @@ const OtherProfile = (props) => {
    const uname = props.match.params.username
    const { user } = useContext(AuthContext)
 
-   const { data, error, loading, setData } = useHttpGet(`/profiles/${uname}`)
+   const { data, error, loading, setData } = useHttpGet(`/api/profiles/${uname}`)
 
    useEffect(() => {
       if (data && data.id) {
-         axios.get(`/profiles/photos/${data.id}`)
+         axios.get(`/api/profiles/photos/${data.id}`)
             .then(res =>
                setPhotos(res.data)
             )
@@ -30,7 +30,7 @@ const OtherProfile = (props) => {
       // The request will **probably** never fail, and always has the same outcome
       // so taking an optimistic-UI approach here makes sense
       // for a more responive behaviour
-      const url = doesFollow ? `/profiles/unfollow/${data.id}` : `/profiles/follow/${data.id}`
+      const url = doesFollow ? `/api/profiles/unfollow/${data.id}` : `/api/profiles/follow/${data.id}`
       const copyOfPrev = Object.assign({}, data)
       try {
          setData(prevState => ({

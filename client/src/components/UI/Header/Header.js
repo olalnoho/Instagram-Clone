@@ -26,7 +26,7 @@ const Header = props => {
                            history.push('/')
                            localStorage.removeItem('token')
                            setUser(null)
-                        }} className="btn btn--thirdary">Log out</button>
+                        }} className="btn btn--primary">Log out</button>
                      </>
                }
             </div>

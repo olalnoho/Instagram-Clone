@@ -6,13 +6,24 @@ import Upload from '../Upload/Upload'
 import UploadAvatar from '../UploadAvatar/UploadAvatar'
 import EditText from './EditText'
 import ImageView from './ImageView'
+import axios from '../../axios/axios'
+
 const Profile = () => {
-   const { data, error, loading, setData } = useHttpGet('/profiles')
-   const { data: photos, setData: addPhoto } = useHttpGet('/profiles/photos')
+   const { data, error, loading, setData } = useHttpGet('/api/profiles')
+   const { data: photos, setData: setPhotos } = useHttpGet('/api/profiles/photos')
    const [showUploadModal, setShowUploadModal] = useState(false)
    const [showAvatarModal, setShowAvatarModal] = useState(false)
    const [showProfileTextModal, setShowProfileTextModal] = useState(false)
    const [activePhoto, setActivePhoto] = useState(null)
+
+   const deletePhotos = id => {
+      axios.delete('/api/photos/' + id)
+         .then(({ data }) => {
+            const newPhotos = photos.slice().filter(p => p.id !== data.photo.id)
+            setPhotos(newPhotos)
+            setActivePhoto(null)
+         })
+   }
 
    if (loading) {
       return <div className="profile"></div>
@@ -22,7 +33,12 @@ const Profile = () => {
    return (
       <>
          {activePhoto && <Modal extraClass="photo-modal">
-            <ImageView avatar={avatar} username={username} photo={activePhoto.path} id={activePhoto.id} />
+            <ImageView
+               avatar={avatar}
+               username={username}
+               photo={activePhoto.path}
+               id={activePhoto.id}
+               deletePhoto={deletePhotos} />
          </Modal>}
 
          <div className="container flex" onClick={e => {
@@ -33,7 +49,7 @@ const Profile = () => {
          }}>
 
             {(showUploadModal || showAvatarModal || showProfileTextModal) && <Modal extraClass="action-modal">
-               {showUploadModal && <Upload modalState={setShowUploadModal} addPhoto={addPhoto} username={username} />}
+               {showUploadModal && <Upload modalState={setShowUploadModal} addPhoto={setPhotos} username={username} />}
                {showAvatarModal && <UploadAvatar modalState={setShowAvatarModal} setAvatar={setData} username={username} />}
                {showProfileTextModal && <EditText initText={data.profile_text} modalState={setShowProfileTextModal} setProfileText={setData} />}
             </Modal>}

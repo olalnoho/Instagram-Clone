@@ -4,14 +4,14 @@ import useHttpPost from '../../hooks/useHttp'
 import useAutoScroll from '../../hooks/useAutoScroll'
 import { AuthContext } from '../../context/AuthContext'
 
-const ImageView = ({ photo, avatar, username, id }) => {
+const ImageView = ({ photo, avatar, username, id, deletePhoto }) => {
    const { user } = useContext(AuthContext)
    const [imageLoading, setImageLoading] = useState(true)
    const [commentText, setCommentText] = useState('')
    const [mWidth, setMWidth] = useState(935)
 
-   const { data: comments, loading: commentLoad, setData: setComments } = useHttpGet(`/photos/${id}`)
-   const { fetchData } = useHttpPost(`/photos/${id}`)
+   const { data: comments, loading: commentLoad, setData: setComments } = useHttpGet(`/api/photos/${id}`)
+   const { fetchData } = useHttpPost(`/api/photos/${id}`)
 
    // imageLoading is a dependency because the modal
    // has 'display: none' if image is not loaded
@@ -54,6 +54,9 @@ const ImageView = ({ photo, avatar, username, id }) => {
             <header className="imageview__right-header">
                <img src={avatar + '?' + new Date().getTime()} alt="avatar" />
                <span> {username}  </span>
+               {(user.username === username) &&
+                  <button onClick={() => deletePhoto(id)} className="btn btn--thirdary">Delete</button>
+               }
             </header>
             <div className="imageview__right-comments" ref={ref}>
                {commentLoad ? <p>Loading...</p> :

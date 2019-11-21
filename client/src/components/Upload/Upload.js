@@ -19,7 +19,7 @@ const Upload = ({ username, addPhoto, modalState }) => {
       formData.append('description', desc)
       formData.append('tags', allTags)
       try {
-         const { data } = await axios.post('/upload', formData)
+         const { data } = await axios.post('/api/upload', formData)
          addPhoto(prev => {
             return [data.file, ...prev]
          })

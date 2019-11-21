@@ -4,7 +4,7 @@ import useHttp from '../../hooks/useHttp'
 const UploadAvatar = ({ username, setAvatar,modalState }) => {
    const [file, setFile] = useState()
    const [fileName, setFileName] = useState('Choose a file')
-   const { error, fetchData } = useHttp('/upload/avatar')
+   const { error, fetchData } = useHttp('/api/upload/avatar')
    const uploadFile = async e => {
       const formData = new FormData()
       formData.append('file', file)

@@ -1,5 +1,7 @@
 const router = require('express').Router()
 const db = require('../db')
+const fs = require('fs').promises
+const path = require('path')
 const auth = require('../middleware/auth')
 
 router.get('/:id', async (req, res) => {
@@ -39,12 +41,40 @@ router.post('/:id', auth(true), async (req, res) => {
       return res.json(data)
 
    } catch (err) {
-      if(err.code == '23503') {
+      if (err.code == '23503') {
          return res.status(400).json({
             err: 'Photo does not exist'
          })
       }
-      return res.status(500).json({err})
+      return res.status(500).json({ err })
+   }
+})
+
+router.delete('/:id', auth(true), async (req, res) => {
+   try {
+
+      const photo = await db('photos')
+         .delete()
+         .where({
+            uploaded_by: req.userId,
+            id: req.params.id
+         }).returning('*')
+
+      const file_path = path.join(__dirname, '../public', photo[0].file_path)
+      const small_file_path = path.join(__dirname, '../public', photo[0].small_file_path)
+
+      await fs.unlink(file_path)
+      await fs.unlink(small_file_path)
+
+      res.json({
+         photo: photo[0]
+      })
+      
+   } catch (err) {
+      console.log(err)
+      res.status(400).json({
+         err: err.message
+      })
    }
 })
 

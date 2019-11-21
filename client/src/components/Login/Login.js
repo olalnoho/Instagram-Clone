@@ -6,7 +6,7 @@ import axios from '../../axios/axios'
 const Login = () => {
    const [identifier, setIdentifier] = useState('')
    const [password, setPassword] = useState('')
-   const { fetchData, data, error, loading } = useHttp('/auth/login')
+   const { fetchData, data, error, loading } = useHttp('/api/auth/login')
    const { setUser, user } = useContext(AuthContext)
    const isValid = identifier && password.length > 5
 
