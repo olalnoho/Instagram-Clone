@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import useHttp from '../../hooks/useHttp'
 
-const UploadAvatar = ({ username, setAvatar,modalState }) => {
+const UploadAvatar = ({ username, setAvatar, modalState }) => {
    const [file, setFile] = useState()
    const [fileName, setFileName] = useState('Choose a file')
    const { error, fetchData } = useHttp('/api/upload/avatar')

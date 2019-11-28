@@ -19,7 +19,7 @@ const Profile = () => {
    const deletePhotos = id => {
       axios.delete('/api/photos/' + id)
          .then(({ data }) => {
-            const newPhotos = photos.slice().filter(p => p.id !== data.photo.id)
+            const newPhotos = photos.filter(p => p.id !== data.photo.id)
             setPhotos(newPhotos)
             setActivePhoto(null)
          })
