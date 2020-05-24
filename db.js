@@ -1,11 +1,14 @@
-module.exports = require('knex')({
+const knex = require('knex')      
+
+const db = knex({
    client: 'pg',
    version: '11.5',
    connection: {
-     host : process.env.DB_HOST,
-     user : 'duh',
-     password : process.env.DB_PASSWORD,
-     database : 'gramclone'
+      host: '127.0.0.1',
+      password: 'password',       
+      database: 'gramclone',      
+      user: 'duh'
    }
- });
- 
+})
+
+module.exports = db

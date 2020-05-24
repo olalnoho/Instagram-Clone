@@ -1,6 +1,6 @@
 const fs = require('fs').promises
 const path = require('path')
-const sharp = require('sharp')
+const jimp = require('jimp')
 const router = require('express').Router()
 
 const db = require('../db')
@@ -24,15 +24,23 @@ router.post('/', auth(true), async (req, res) => {
    try {
       await fs.access(folder)
       // first null in resize means width will auto-scale to height.
-      await sharp(file.data).resize(null, 600).toFile(fullPath)
-      await sharp(file.data).resize(null, 300).toFile(smallFullPath)
+      const img = await jimp.read(file.data)
+      const img2 = await jimp.read(file.data)
+      await img.resize(jimp.AUTO, 600)
+      await img.write(fullPath)
+      await img2.resize(jimp.AUTO, 300)
+      await img2.write(smallFullPath)
    } catch (err) {
       if (err.code === 'ENOENT') {
          try {
             await fs.mkdir(folder, { recursive: true })
-            await sharp(file.data).resize(null, 600).toFile(fullPath)
-            await sharp(file.data).resize(null, 600).toFile(smallFullPath)
-         } catch {
+            const img = await jimp.read(file.data)
+            img.resize(jimp.AUTO, 600)
+            await img.write(fullPath)
+            const img2 = await jimp.read(file.data)
+            await img2.resize(jimp.AUTO, 600)
+            await img.write(smallFullPath)
+         } catch(err) {
             return res.status(500).json({
                err: 'Unable to save image to filesystem'
             })
@@ -80,7 +88,9 @@ router.post('/avatar', auth(true), async (req, res) => {
    let fullPath = path.resolve(folder)
    try {
       // first null in resize means width will auto-scale to height.
-      await sharp(file.data).resize(null, 150).toFile(fullPath + '/' + `${username}.png`)
+      const img = await jimp.read(file.data)
+      await img.resize(jimp.AUTO, 150)
+      await img.write(fullPath + '/' + `${username}.png`)
    } catch (err) {
       return res.status(500).json({
          err: 'Unable to save image to filesystem'
